@@ -29,39 +29,39 @@ export function TrackingPage() {
     : 0;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-gray-900">Pair Tracking</h1>
-        <p className="mt-2 text-gray-600">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Pair Tracking</h1>
+        <p className="mt-2 text-gray-600 text-sm sm:text-base px-4">
           Track the status of mentor-mentee pairs through the introduction process
         </p>
       </div>
 
       {pairs.length > 0 && (
-        <div className="bg-white p-6 rounded-lg shadow-sm border">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Progress Overview</h3>
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border">
+          <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-4">Progress Overview</h3>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-gray-600">{pairs.length}</div>
-              <div className="text-sm text-gray-600">Total Pairs</div>
+              <div className="text-xl sm:text-2xl font-bold text-gray-600">{pairs.length}</div>
+              <div className="text-xs sm:text-sm text-gray-600">Total Pairs</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-red-600">{statusCounts.NOT_SENT}</div>
-              <div className="text-sm text-gray-600">Not Sent</div>
+              <div className="text-xl sm:text-2xl font-bold text-red-600">{statusCounts.NOT_SENT}</div>
+              <div className="text-xs sm:text-sm text-gray-600">Not Sent</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">{statusCounts.SENT}</div>
-              <div className="text-sm text-gray-600">Sent</div>
+              <div className="text-xl sm:text-2xl font-bold text-blue-600">{statusCounts.SENT}</div>
+              <div className="text-xs sm:text-sm text-gray-600">Sent</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">{statusCounts.BOOKED}</div>
-              <div className="text-sm text-gray-600">Meetings Booked</div>
+              <div className="text-xl sm:text-2xl font-bold text-green-600">{statusCounts.BOOKED}</div>
+              <div className="text-xs sm:text-sm text-gray-600 leading-tight">Meetings Booked</div>
             </div>
           </div>
 
-          <div className="mt-6">
-            <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
+          <div className="mt-4 sm:mt-6">
+            <div className="flex items-center justify-between text-xs sm:text-sm text-gray-600 mb-2">
               <span>Completion Progress</span>
               <span>{completionRate}%</span>
             </div>
@@ -84,17 +84,17 @@ export function TrackingPage() {
       />
 
       {pairs.length === 0 && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-          <div className="text-sm text-yellow-800">
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 sm:p-4">
+          <div className="text-xs sm:text-sm text-yellow-800">
             <strong>No pairs to track.</strong> Create matches first in the Matching tab, then generate and send messages.
           </div>
         </div>
       )}
 
       {pairs.length > 0 && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h3 className="font-medium text-blue-900 mb-2">Usage Instructions</h3>
-          <div className="text-sm text-blue-800 space-y-1">
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4">
+          <h3 className="font-medium text-blue-900 mb-2 text-sm sm:text-base">Usage Instructions</h3>
+          <div className="text-xs sm:text-sm text-blue-800 space-y-1">
             <p><strong>Not Sent:</strong> Messages generated but not yet sent to participants</p>
             <p><strong>Sent:</strong> Introduction messages have been sent, waiting for participants to connect</p>
             <p><strong>Meeting Booked:</strong> Participants have scheduled their first meeting</p>

@@ -2,7 +2,47 @@
 
 /* Test to see if TailwindCSS is working */
 .test-tw {
-  background-color: theme(colors.red.500);
-  color: theme(colors.white);
-  padding: theme(spacing.4);
+  background-color: #ef4444;
+  color: white;
+  padding: 1rem;
+}
+
+/* Custom slider styling for better mobile experience */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0.5rem;
+  background: transparent;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: none;
+}
+
+/* Improve mobile touch targets */
+@media (max-width: 768px) {
+  button, input, select, textarea {
+    min-height: 44px;
+  }
+  
+  /* Better mobile table scrolling */
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
 }

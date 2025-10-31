@@ -69,9 +69,9 @@ export function MatchingPage() {
 
   if (mentors.length === 0 || mentees.length === 0) {
     return (
-      <div className="text-center py-12">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Matching</h1>
-        <p className="text-gray-600 mb-6">
+      <div className="text-center py-8 sm:py-12">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Matching</h1>
+        <p className="text-gray-600 mb-6 text-sm sm:text-base px-4">
           Please upload mentor and mentee data first to start matching.
         </p>
         <div className="text-sm text-gray-500">
@@ -82,16 +82,16 @@ export function MatchingPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-gray-900">Mentor-Mentee Matching</h1>
-        <p className="mt-2 text-gray-600">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Mentor-Mentee Matching</h1>
+        <p className="mt-2 text-gray-600 text-sm sm:text-base px-4">
           Run the matching algorithm to pair mentors with mentees
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-1">
+      <div className="grid gap-4 sm:gap-6 xl:grid-cols-3">
+        <div className="xl:col-span-1">
           <MatchControls
             onRunMatching={handleRunMatching}
             onReset={handleReset}
@@ -101,7 +101,7 @@ export function MatchingPage() {
           />
         </div>
         
-        <div className="lg:col-span-2">
+        <div className="xl:col-span-2">
           <Analytics
             mentors={mentors}
             mentees={mentees}
@@ -119,8 +119,8 @@ export function MatchingPage() {
       
       {pairs.length > 0 && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h3 className="font-medium text-blue-900 mb-2">Matching Algorithm Explanation</h3>
-          <div className="text-sm text-blue-800 space-y-1">
+          <h3 className="font-medium text-blue-900 mb-2 text-sm sm:text-base">Matching Algorithm Explanation</h3>
+          <div className="text-xs sm:text-sm text-blue-800 space-y-1">
             <p><strong>Scoring weights:</strong> Skills (40%), Interests (20%), Availability (20%), Location (10%), Capacity (10%)</p>
             <p><strong>Process:</strong> Mentees are evaluated against all mentors, best available match above threshold is selected</p>
             <p><strong>Fairness:</strong> Mentees are processed in random order to ensure fair distribution</p>

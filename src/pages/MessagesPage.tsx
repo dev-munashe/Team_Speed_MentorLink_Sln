@@ -22,19 +22,19 @@ export function MessagesPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-gray-900">Message Generation</h1>
-        <p className="mt-2 text-gray-600">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Message Generation</h1>
+        <p className="mt-2 text-gray-600 text-sm sm:text-base px-4">
           Customize templates and generate introduction messages
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-4 sm:gap-6 xl:grid-cols-3">
         {/* Template and Settings */}
-        <div className="lg:col-span-1 space-y-4">
-          <div className="bg-white p-6 rounded-lg shadow-sm border">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Message Template</h3>
+        <div className="xl:col-span-1 space-y-4">
+          <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border">
+            <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-4">Message Template</h3>
             
             <div className="space-y-4">
               <div>
@@ -96,15 +96,15 @@ export function MessagesPage() {
                 <textarea
                   value={template}
                   onChange={(e) => setTemplate(e.target.value)}
-                  rows={8}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm"
+                  rows={6}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-xs sm:text-sm"
                   placeholder="Use variables like {{mentor_name}}, {{mentee_name}}, etc."
                 />
               </div>
 
-              <div className="text-xs text-gray-500">
+              <div className="text-xs sm:text-sm text-gray-500 bg-gray-50 p-3 rounded-lg">
                 <p className="font-medium mb-1">Available variables:</p>
-                <div className="space-y-1">
+                <div className="space-y-1 font-mono text-xs">
                   <p>{'{{mentor_name}}, {{mentor_email}}'}</p>
                   <p>{'{{mentee_name}}, {{mentee_email}}'}</p>
                   <p>{'{{program_name}}, {{one_line_reason}}'}</p>
@@ -116,7 +116,7 @@ export function MessagesPage() {
         </div>
 
         {/* Message Previews */}
-        <div className="lg:col-span-2">
+        <div className="xl:col-span-2">
           <MessagePreview
             pairs={pairs}
             mentors={mentors}
@@ -131,8 +131,8 @@ export function MessagesPage() {
       </div>
 
       {pairs.length === 0 && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-          <div className="text-sm text-yellow-800">
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 sm:p-4">
+          <div className="text-xs sm:text-sm text-yellow-800">
             <strong>No pairs found.</strong> Create matches first in the Matching tab to generate messages.
           </div>
         </div>

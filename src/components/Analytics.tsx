@@ -22,37 +22,37 @@ export function Analytics({ mentors, mentees, pairs }: AnalyticsProps) {
   });
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm border">
-      <h3 className="text-lg font-medium text-gray-900 mb-4">Analytics</h3>
+    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border">
+      <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-4">Analytics</h3>
       
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6">
         <div className="text-center">
-          <div className="text-2xl font-bold text-blue-600">{mentors.length}</div>
-          <div className="text-sm text-gray-600">Mentors</div>
+          <div className="text-xl sm:text-2xl font-bold text-blue-600">{mentors.length}</div>
+          <div className="text-xs sm:text-sm text-gray-600">Mentors</div>
         </div>
         <div className="text-center">
-          <div className="text-2xl font-bold text-green-600">{mentees.length}</div>
-          <div className="text-sm text-gray-600">Mentees</div>
+          <div className="text-xl sm:text-2xl font-bold text-green-600">{mentees.length}</div>
+          <div className="text-xs sm:text-sm text-gray-600">Mentees</div>
         </div>
         <div className="text-center">
-          <div className="text-2xl font-bold text-purple-600">{pairs.length}</div>
-          <div className="text-sm text-gray-600">Pairs Created</div>
+          <div className="text-xl sm:text-2xl font-bold text-purple-600">{pairs.length}</div>
+          <div className="text-xs sm:text-sm text-gray-600">Pairs Created</div>
         </div>
         <div className="text-center">
-          <div className="text-2xl font-bold text-orange-600">{avgScore}%</div>
-          <div className="text-sm text-gray-600">Avg Score</div>
+          <div className="text-xl sm:text-2xl font-bold text-orange-600">{avgScore}%</div>
+          <div className="text-xs sm:text-sm text-gray-600">Avg Score</div>
         </div>
       </div>
 
       {unpairedMentees.length > 0 && (
         <div className="mb-4">
-          <h4 className="font-medium text-gray-900 mb-2">
+          <h4 className="font-medium text-gray-900 mb-2 text-sm sm:text-base">
             Unpaired Mentees ({unpairedMentees.length})
           </h4>
-          <div className="max-h-32 overflow-y-auto">
-            <ul className="text-sm text-gray-600 space-y-1">
+          <div className="max-h-24 sm:max-h-32 overflow-y-auto">
+            <ul className="text-xs sm:text-sm text-gray-600 space-y-1">
               {unpairedMentees.map(mentee => (
-                <li key={mentee.id}>
+                <li key={mentee.id} className="hyphens-auto">
                   {mentee.name} - wants: {mentee.preferred_skills.slice(0, 3).join(', ')}
                   {mentee.preferred_skills.length > 3 && '...'}
                 </li>
@@ -63,14 +63,14 @@ export function Analytics({ mentors, mentees, pairs }: AnalyticsProps) {
       )}
 
       <div>
-        <h4 className="font-medium text-gray-900 mb-2">Mentor Utilization</h4>
-        <div className="max-h-40 overflow-y-auto space-y-2">
+        <h4 className="font-medium text-gray-900 mb-2 text-sm sm:text-base">Mentor Utilization</h4>
+        <div className="max-h-32 sm:max-h-40 overflow-y-auto space-y-2">
           {mentorUtilization.map((mentor, index) => (
-            <div key={index} className="flex items-center justify-between text-sm">
-              <span className="text-gray-700">{mentor.name}</span>
-              <div className="flex items-center space-x-2">
-                <span className="text-gray-600">{mentor.assigned}/{mentor.capacity}</span>
-                <div className="w-20 bg-gray-200 rounded-full h-2">
+            <div key={index} className="flex items-center justify-between text-xs sm:text-sm">
+              <span className="text-gray-700 truncate flex-1 mr-2">{mentor.name}</span>
+              <div className="flex items-center space-x-2 shrink-0">
+                <span className="text-gray-600 text-xs">{mentor.assigned}/{mentor.capacity}</span>
+                <div className="w-12 sm:w-20 bg-gray-200 rounded-full h-2">
                   <div
                     className={`h-2 rounded-full transition-all ${
                       mentor.assigned === mentor.capacity ? 'bg-green-500' :
