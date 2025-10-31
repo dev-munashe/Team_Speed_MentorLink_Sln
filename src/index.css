@@ -1,0 +1,8 @@
+﻿@import "tailwindcss";
+
+/* Test to see if TailwindCSS is working */
+.test-tw {
+  background-color: theme(colors.red.500);
+  color: theme(colors.white);
+  padding: theme(spacing.4);
+}

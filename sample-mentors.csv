@@ -1,0 +1,6 @@
+name,email,skills,capacity,availability_slots,location,role,org
+Alice Johnson,alice@techcorp.com,"JavaScript,React,Node.js",2,"Mon 18:00-20:00,Wed 18:00-20:00",San Francisco,Senior Developer,TechCorp
+Bob Smith,bob@innovation.com,"Python,Django,Machine Learning",1,"Tue 17:00-19:00,Thu 17:00-19:00",New York,Data Scientist,Innovation Labs
+Carol Williams,carol@startup.com,"Product Management,Strategy,Leadership",3,"Mon 19:00-21:00,Fri 18:00-20:00",Austin,Product Manager,StartupCo
+David Brown,david@enterprise.com,"Java,Spring Boot,Microservices",2,"Wed 17:30-19:30,Sat 10:00-12:00",Seattle,Tech Lead,Enterprise Inc
+Emma Davis,emma@consulting.com,"Marketing,Growth,Analytics",1,"Tue 18:00-20:00,Thu 18:00-20:00",Denver,Marketing Director,Consulting Group
