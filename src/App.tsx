@@ -13,7 +13,7 @@ function App() {
       case 'upload':
         return <UploadPage onNext={() => setActiveTab('matching')} />;
       case 'matching':
-        return <MatchingPage />;
+        return <MatchingPage onNavigateToAnalysis={() => setActiveTab('messages')} />;
       case 'messages':
         return <MessagesPage />;
       case 'tracking':

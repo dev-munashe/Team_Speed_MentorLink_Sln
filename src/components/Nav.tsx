@@ -15,7 +15,7 @@ export function Nav({ activeTab, onTabChange }: NavProps) {
   const tabs = [
     { id: 'upload', label: 'Upload' },
     { id: 'matching', label: 'Matching' },
-    { id: 'messages', label: 'Messages' },
+    { id: 'messages', label: 'Analysis' },
     { id: 'tracking', label: 'Tracking' },
   ];
 
