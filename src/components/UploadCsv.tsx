@@ -14,12 +14,12 @@ export function UploadCsv({ kind, onDataLoaded, existingData = [] }: UploadCsvPr
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [preview, setPreview] = useState<any[]>([]);
+  const [dragOver, setDragOver] = useState(false);
 
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (!selectedFile) return;
+  const handleFileChange = async (file: File) => {
+    if (!file) return;
 
-    setFile(selectedFile);
+    setFile(file);
     setError(null);
     setLoading(true);
 
@@ -27,9 +27,9 @@ export function UploadCsv({ kind, onDataLoaded, existingData = [] }: UploadCsvPr
       let data: Mentor[] | Mentee[];
       
       if (kind === 'mentors') {
-        data = await parseMentorsCsv(selectedFile);
+        data = await parseMentorsCsv(file);
       } else {
-        data = await parseMenteesCsv(selectedFile);
+        data = await parseMenteesCsv(file);
       }
 
       setPreview(data.slice(0, 5)); // Show first 5 rows
@@ -42,23 +42,74 @@ export function UploadCsv({ kind, onDataLoaded, existingData = [] }: UploadCsvPr
     }
   };
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
+    if (selectedFile) {
+      handleFileChange(selectedFile);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOver(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOver(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOver(false);
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0 && files[0].type === 'text/csv') {
+      handleFileChange(files[0]);
+    }
+  };
+
   const requiredColumns = kind === 'mentors'
     ? ['name', 'email', 'skills', 'capacity', 'availability_slots']
     : ['name', 'email', 'preferred_skills', 'availability_slots'];
 
   return (
     <div className="space-y-4">
-      <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 sm:p-6">
+      <div 
+        className={`border-2 border-dashed rounded-lg p-4 sm:p-6 transition-colors ${
+          dragOver 
+            ? 'border-blue-400 bg-blue-50' 
+            : existingData.length > 0 
+            ? 'border-green-300 bg-green-50'
+            : 'border-gray-300 bg-white'
+        }`}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+      >
         <div className="text-center">
-          <div className="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-gray-400">
-            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-            </svg>
+          <div className={`mx-auto h-10 w-10 sm:h-12 sm:w-12 ${
+            existingData.length > 0 ? 'text-green-500' : 'text-gray-400'
+          }`}>
+            {existingData.length > 0 ? (
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            ) : (
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
+            )}
           </div>
           <div className="mt-3 sm:mt-4">
             <label htmlFor={`file-upload-${kind}`} className="cursor-pointer">
-              <span className="mt-2 block text-sm font-medium text-gray-900">
-                Upload {kind} CSV file
+              <span className={`mt-2 block text-sm font-medium ${
+                existingData.length > 0 ? 'text-green-900' : 'text-gray-900'
+              }`}>
+                {existingData.length > 0 
+                  ? `✓ ${existingData.length} ${kind} loaded - Click to replace`
+                  : `Upload ${kind} CSV file or drag & drop here`
+                }
               </span>
               <input
                 id={`file-upload-${kind}`}
@@ -66,10 +117,10 @@ export function UploadCsv({ kind, onDataLoaded, existingData = [] }: UploadCsvPr
                 type="file"
                 accept=".csv"
                 className="sr-only"
-                onChange={handleFileChange}
+                onChange={handleInputChange}
               />
               <span className="mt-1 block text-xs text-gray-500">
-                CSV files only
+                {dragOver ? 'Drop your CSV file here' : 'CSV files only'}
               </span>
             </label>
           </div>
