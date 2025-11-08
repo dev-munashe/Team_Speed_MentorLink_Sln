@@ -24,21 +24,33 @@ export function MatchControls({
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Minimum Match Threshold: {threshold}%
           </label>
-          <input
-            type="range"
-            min="40"
-            max="80"
-            value={threshold}
-            onChange={(e) => onThresholdChange(parseInt(e.target.value))}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-thumb"
-          />
-          <div className="flex justify-between text-xs text-gray-500 mt-1">
-            <span>40%</span>
-            <span>60%</span>
-            <span>80%</span>
+
+          {/* Scrollable slider container with subtle contrast to stand out from white page */}
+          <div className="overflow-x-auto rounded-md bg-gray-300 p-3 border border-gray-200">
+            {/* Inner wrapper wider than the container to encourage horizontal scrolling */}
+            <div style={{ minWidth: 640 }} className="flex flex-col gap-2">
+              <input
+                type="range"
+                min="40"
+                max="80"
+                value={threshold}
+                onChange={(e) => onThresholdChange(parseInt(e.target.value))}
+                aria-label="Minimum match threshold"
+                title="Drag the thumb or scroll horizontally to change the threshold"
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-thumb"
+                style={{ WebkitAppearance: 'none' }}
+              />
+
+              <div className="flex justify-between text-xs text-gray-500 mt-1">
+                <span>40%</span>
+                <span>60%</span>
+                <span>80%</span>
+              </div>
+            </div>
           </div>
-          <p className="text-xs text-gray-600 mt-1">
-            Lower threshold = more matches, higher threshold = better quality matches
+
+          <p className="text-xs text-gray-600 mt-2">
+            Lower threshold = more matches, higher threshold = better quality matches. Scroll the control area if the slider is not fully visible.
           </p>
         </div>
         
