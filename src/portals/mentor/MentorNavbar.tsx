@@ -12,9 +12,8 @@ export function MentorNavbar() {
   const navItems = [
     { path: '/mentor', label: 'Dashboard', exact: true },
     { path: '/mentor/profile', label: 'Profile' },
-    { path: '/mentor/mentees', label: 'My Mentees' },
-    { path: '/mentor/messages', label: 'Messages' },
-    { path: '/mentor/availability', label: 'Availability' }
+    { path: '/mentor/matches', label: 'My Mentees' },
+    { path: '/mentor/messages', label: 'Messages' }
   ];
 
   const isActive = (path: string, exact = false) => {
