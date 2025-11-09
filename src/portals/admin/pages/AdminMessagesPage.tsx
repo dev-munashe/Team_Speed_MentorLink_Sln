@@ -321,12 +321,12 @@ export function AdminMessagesPage() {
 
         {activeTab === 'send' && (
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">Send Messages</h3>
                 <p className="text-sm text-gray-600 mt-1">Preview and send introduction messages to mentor-mentee pairs</p>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                 <span className="text-sm text-gray-600">
                   {pairs.filter(p => p.status === 'NOT_SENT').length} ready to send
                 </span>
@@ -334,7 +334,7 @@ export function AdminMessagesPage() {
                   <button
                     onClick={sendAllMessages}
                     disabled={sendingPairs.size > 0}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto justify-center"
                   >
                     <Send size={16} />
                     {sendingPairs.size > 0 ? 'Sending...' : 'Send All Messages'}
@@ -344,7 +344,7 @@ export function AdminMessagesPage() {
             </div>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <div className="flex items-center gap-2">
                   <Clock className="w-5 h-5 text-yellow-600" />
@@ -408,13 +408,13 @@ export function AdminMessagesPage() {
                       'bg-gray-50'
                     }`}>
                       {/* Header */}
-                      <div className="flex items-center justify-between mb-4">
-                        <div>
-                          <div className="flex items-center gap-3 mb-2">
-                            <h4 className="text-lg font-medium text-gray-900">
+                      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-4">
+                        <div className="flex-1">
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+                            <h4 className="text-base sm:text-lg font-medium text-gray-900 break-words">
                               {mentor.name} ↔ {mentee.name}
                             </h4>
-                            <span className={`px-3 py-1 text-sm font-medium rounded-full ${
+                            <span className={`px-3 py-1 text-sm font-medium rounded-full self-start ${
                               isUnsent ? 'bg-yellow-100 text-yellow-800' :
                               isSending ? 'bg-blue-100 text-blue-800' :
                               isSent ? 'bg-blue-100 text-blue-800' :
@@ -431,16 +431,16 @@ export function AdminMessagesPage() {
                               )}
                             </span>
                           </div>
-                          <div className="text-sm text-gray-600">
+                          <div className="text-sm text-gray-600 break-words">
                             Recipients: {mentor.email}, {mentee.email}
                           </div>
                         </div>
                         
-                        <div className="flex items-center gap-2">
-                          {isUnsent && !isSending && (
+                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">{
+                          isUnsent && !isSending && (
                             <button
                               onClick={() => sendMessage(pair.id)}
-                              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors justify-center"
                             >
                               <Send size={16} />
                               Send Message
@@ -453,17 +453,19 @@ export function AdminMessagesPage() {
                               setCopySuccess(pair.id);
                               setTimeout(() => setCopySuccess(null), 2000);
                             }}
-                            className="flex items-center gap-2 px-3 py-2 text-blue-600 border border-blue-300 rounded-lg hover:bg-blue-50 transition-colors"
+                            className="flex items-center gap-2 px-3 py-2 text-blue-600 border border-blue-300 rounded-lg hover:bg-blue-50 transition-colors justify-center"
                           >
                             {copySuccess === pair.id ? <Check size={16} /> : <Copy size={16} />}
-                            {copySuccess === pair.id ? 'Copied!' : 'Copy'}
+                            <span className="hidden sm:inline">
+                              {copySuccess === pair.id ? 'Copied!' : 'Copy'}
+                            </span>
                           </button>
                         </div>
                       </div>
 
                       {/* Message Preview */}
-                      <div className="bg-white border rounded-lg p-4">
-                        <div className="flex items-center justify-between mb-3">
+                      <div className="bg-white border rounded-lg p-3 sm:p-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-3 mb-3">
                           <h5 className="text-sm font-medium text-gray-700">Message Preview</h5>
                           <div className="flex items-center gap-2">
                             <span className="text-xs text-gray-500">Score: {pair.score}%</span>
@@ -476,12 +478,12 @@ export function AdminMessagesPage() {
                                 {expandedMessages.has(pair.id) ? (
                                   <>
                                     <ChevronUp size={14} />
-                                    Collapse
+                                    <span className="hidden sm:inline">Collapse</span>
                                   </>
                                 ) : (
                                   <>
                                     <ChevronDown size={14} />
-                                    Expand
+                                    <span className="hidden sm:inline">Expand</span>
                                   </>
                                 )}
                               </button>
@@ -491,27 +493,27 @@ export function AdminMessagesPage() {
                         
                         {/* Message content - always show for unsent, conditionally show for sent */}
                         {(isUnsent || isSending || expandedMessages.has(pair.id)) ? (
-                          <div className="text-sm text-gray-700 whitespace-pre-wrap font-mono leading-relaxed">
+                          <div className="text-xs sm:text-sm text-gray-700 whitespace-pre-wrap font-mono leading-relaxed overflow-x-auto">
                             {generateMessage(pair)}
                           </div>
                         ) : (
-                          <div className="text-sm text-gray-500 italic">
+                          <div className="text-xs sm:text-sm text-gray-500 italic">
                             Message content hidden. Click "Expand" to view the full message.
                           </div>
                         )}
                       </div>
                       
                       {isSent && (
-                        <div className="mt-3 flex items-center gap-2 text-sm text-blue-600">
-                          <CheckCircle size={16} />
-                          Message sent successfully on {new Date().toLocaleDateString()} at {new Date().toLocaleTimeString()}
+                        <div className="mt-3 flex items-start sm:items-center gap-2 text-xs sm:text-sm text-blue-600">
+                          <CheckCircle size={16} className="flex-shrink-0 mt-0.5 sm:mt-0" />
+                          <span>Message sent successfully on {new Date().toLocaleDateString()} at {new Date().toLocaleTimeString()}</span>
                         </div>
                       )}
                       
                       {isActive && (
-                        <div className="mt-3 flex items-center gap-2 text-sm text-green-600">
-                          <CheckCircle size={16} />
-                          Mentoring relationship is now active
+                        <div className="mt-3 flex items-start sm:items-center gap-2 text-xs sm:text-sm text-green-600">
+                          <CheckCircle size={16} className="flex-shrink-0 mt-0.5 sm:mt-0" />
+                          <span>Mentoring relationship is now active</span>
                         </div>
                       )}
                     </div>
