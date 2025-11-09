@@ -1,32 +1,58 @@
-import { useState } from 'react';
-import { Layout } from './components/Layout';
-import { UploadPage } from './pages/UploadPage';
-import { MatchingPage } from './pages/MatchingPage';
-import { MessagesPage } from './pages/MessagesPage';
-import { TrackingPage } from './pages/TrackingPage';
+// src/App.tsx
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import { AuthPage } from './components/auth/AuthPage';
+import { LandingPage } from './components/LandingPage';
+import { AdminRoute, MentorRoute, MenteeRoute } from './components/auth';
+
+// Portal imports
+import { AdminPortal } from './portals/admin/AdminPortal';
+import { MentorPortal } from './portals/mentor/MentorPortal';
+import { MenteePortal } from './portals/mentee/MenteePortal';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('upload');
-
-  const renderCurrentPage = () => {
-    switch (activeTab) {
-      case 'upload':
-        return <UploadPage onNext={() => setActiveTab('matching')} />;
-      case 'matching':
-        return <MatchingPage onNavigateToAnalysis={() => setActiveTab('messages')} />;
-      case 'messages':
-        return <MessagesPage />;
-      case 'tracking':
-        return <TrackingPage />;
-      default:
-        return <UploadPage onNext={() => setActiveTab('matching')} />;
-    }
-  };
-
   return (
-    <Layout activeTab={activeTab} onTabChange={setActiveTab}>
-      {renderCurrentPage()}
-    </Layout>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<AuthPage />} />
+          <Route path="/signup" element={<AuthPage />} />
+
+          {/* Protected Portal Routes */}
+          <Route 
+            path="/admin/*" 
+            element={
+              <AdminRoute>
+                <AdminPortal />
+              </AdminRoute>
+            } 
+          />
+          
+          <Route 
+            path="/mentor/*" 
+            element={
+              <MentorRoute>
+                <MentorPortal />
+              </MentorRoute>
+            } 
+          />
+          
+          <Route 
+            path="/mentee/*" 
+            element={
+              <MenteeRoute>
+                <MenteePortal />
+              </MenteeRoute>
+            } 
+          />
+
+          {/* Catch all route */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
