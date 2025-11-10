@@ -13,6 +13,7 @@ export function MentorMessagesPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedConversation, setSelectedConversation] = useState<string | null>(null);
   const [messageText, setMessageText] = useState('');
+  const [messages, setMessages] = useState<any[]>([]);
 
   // Handle navigation from other pages (e.g., from Message button)
   useEffect(() => {
@@ -23,6 +24,33 @@ export function MentorMessagesPage() {
       window.history.replaceState(null, '');
     }
   }, [location.state]);
+
+  // Initialize messages state
+  useEffect(() => {
+    const initialMessages = [
+      // Pair 1 messages
+      { id: '1-1', pairId: 'pair-1', sender: 'system', content: 'Mentorship started on October 28, 2025', timestamp: '2025-10-28T09:00:00Z' },
+      { id: '1-2', pairId: 'pair-1', sender: 'mentor', content: "Hi Jamie! Welcome to the mentorship program. I'm excited to help you transition into software engineering. What specific areas would you like to focus on first?", timestamp: '2025-10-28T09:05:00Z' },
+      { id: '1-3', pairId: 'pair-1', sender: 'mentee', content: "Hi Sarah! Thank you so much for taking me on. I'm really focused on landing my first software engineering role. I have some coding experience but I'm struggling with technical interviews and building a strong portfolio.", timestamp: '2025-10-28T14:30:00Z' },
+      { id: '1-4', pairId: 'pair-1', sender: 'mentor', content: "Great focus areas! For technical interviews, let's start with data structures and algorithms practice. I recommend LeetCode and HackerRank. For your portfolio, what projects have you built so far?", timestamp: '2025-10-28T15:15:00Z' },
+      { id: '1-5', pairId: 'pair-1', sender: 'mentee', content: "I've built a simple to-do app in React and a basic REST API in Node.js. But they feel pretty basic compared to what I see other candidates showcasing.", timestamp: '2025-10-29T10:20:00Z' },
+      { id: '1-6', pairId: 'pair-1', sender: 'mentor', content: "Those are solid foundations! Let's enhance them - we can add authentication, database integration, and deployment. I'll also share some project ideas that really stand out to hiring managers.", timestamp: '2025-10-29T11:00:00Z' },
+      
+      // Pair 2 messages  
+      { id: '2-1', pairId: 'pair-2', sender: 'system', content: 'Mentorship started on October 30, 2025', timestamp: '2025-10-30T09:00:00Z' },
+      { id: '2-2', pairId: 'pair-2', sender: 'mentor', content: "Hi Marcus! Great to connect. I see you're looking to break into fintech - that's an exciting field! What draws you to fintech specifically?", timestamp: '2025-10-30T09:05:00Z' },
+      { id: '2-3', pairId: 'pair-2', sender: 'mentee', content: "Hi Sarah! I'm fascinated by how technology is transforming financial services. I want to work on products that help people manage their money better. Plus, the technical challenges seem really interesting - handling large transaction volumes, security, real-time processing.", timestamp: '2025-10-30T16:45:00Z' },
+      { id: '2-4', pairId: 'pair-2', sender: 'mentor', content: "I love that perspective! You're right about the technical challenges. Have you thought about what type of fintech company interests you most? Payment processors, investment platforms, lending, or something else?", timestamp: '2025-10-31T08:30:00Z' },
+      { id: '2-5', pairId: 'pair-2', sender: 'mentee', content: "I'm really drawn to payment processing and digital banking. The idea of building systems that handle millions of transactions securely sounds both challenging and impactful.", timestamp: '2025-10-31T19:15:00Z' },
+      { id: '2-6', pairId: 'pair-2', sender: 'mentor', content: "Perfect project choice! That'll definitely resonate with employers. Let's schedule a code review session. I can also introduce you to some fintech professionals in my network.", timestamp: '2025-11-01T11:00:00Z' },
+      
+      // Pair 3 messages
+      { id: '3-1', pairId: 'pair-3', sender: 'system', content: 'Mentorship started on November 5, 2025', timestamp: '2025-11-05T09:00:00Z' },
+      { id: '3-2', pairId: 'pair-3', sender: 'mentor', content: "Hi Priya! Great to meet you. I see you're looking to advance to a senior developer role and improve your leadership skills. These are exciting goals! What's your current experience level?", timestamp: '2025-11-05T09:05:00Z' },
+      { id: '3-3', pairId: 'pair-3', sender: 'mentee', content: "Hi Sarah! I've been a developer for about 18 months now, mainly working on backend services. I love the technical work but I want to start leading projects and mentoring junior developers. Any advice on making that transition?", timestamp: '2025-11-05T13:45:00Z' }
+    ];
+    setMessages(initialMessages);
+  }, []);
 
   // Find this mentor's pairs
   const mentor = mentors.find(m => m.email === user?.email);
@@ -62,30 +90,7 @@ export function MentorMessagesPage() {
 
   // Mock conversation data for demonstration
   const getConversationMessages = (pairId: string) => {
-    const conversations = {
-      'pair-1': [
-        { id: '1', sender: 'system', content: 'Mentorship started on November 1, 2025', timestamp: '2025-11-01T10:00:00Z' },
-        { id: '2', sender: 'mentor', content: "Hi Jamie! I'm excited to be your mentor. I see you're interested in landing a FAANG internship - that's a great goal! Let's schedule our first meeting to discuss your background and create a plan together.", timestamp: '2025-11-01T10:05:00Z' },
-        { id: '3', sender: 'mentee', content: "Thank you Sarah! I'm really grateful for this opportunity. I'm available Monday evenings or Wednesday afternoons. What works best for you?", timestamp: '2025-11-01T11:30:00Z' },
-        { id: '4', sender: 'mentor', content: "Perfect! Let's meet this Wednesday at 6 PM. I'll send you a calendar invite. In the meantime, can you share your current resume and any coding projects you've been working on?", timestamp: '2025-11-01T14:15:00Z' },
-        { id: '5', sender: 'mentee', content: "Absolutely! I'll email you my resume and GitHub portfolio. I've been working on a React project that analyzes social media trends. Looking forward to our chat!", timestamp: '2025-11-01T15:45:00Z' },
-        { id: '6', sender: 'mentor', content: "That sounds fascinating! Social media analytics is very relevant in today's market. I'll take a look and we can discuss potential improvements and how to present it to recruiters.", timestamp: '2025-11-02T09:20:00Z' }
-      ],
-      'pair-2': [
-        { id: '1', sender: 'system', content: 'Mentorship started on October 28, 2025', timestamp: '2025-10-28T14:00:00Z' },
-        { id: '2', sender: 'mentor', content: "Hi Marcus! Welcome to the program. I understand you're transitioning from finance to tech - that's a bold and exciting move! I'd love to hear more about what sparked this career change.", timestamp: '2025-10-28T14:05:00Z' },
-        { id: '3', sender: 'mentee', content: "Hi Sarah! Thanks for taking me on. I've been in investment banking for 5 years but always loved technology. I finally decided to pursue my passion and enrolled in a bootcamp. The learning curve is steep but I'm loving it!", timestamp: '2025-10-28T16:22:00Z' },
-        { id: '4', sender: 'mentor', content: "That's amazing! Your finance background will actually be a huge asset, especially if you're interested in fintech. What technologies are you most excited about learning?", timestamp: '2025-10-29T10:15:00Z' },
-        { id: '5', sender: 'mentee', content: "Right now I'm deep into React and Node.js. I'm building a personal finance tracker app - combining my two worlds! Would love your feedback on the architecture.", timestamp: '2025-10-29T18:30:00Z' },
-        { id: '6', sender: 'mentor', content: "Perfect project choice! That'll definitely resonate with employers. Let's schedule a code review session. I can also introduce you to some fintech professionals in my network.", timestamp: '2025-11-01T11:00:00Z' }
-      ],
-      'pair-3': [
-        { id: '1', sender: 'system', content: 'Mentorship started on November 5, 2025', timestamp: '2025-11-05T09:00:00Z' },
-        { id: '2', sender: 'mentor', content: "Hi Priya! Great to meet you. I see you're looking to advance to a senior developer role and improve your leadership skills. These are exciting goals! What's your current experience level?", timestamp: '2025-11-05T09:05:00Z' },
-        { id: '3', sender: 'mentee', content: "Hi Sarah! I've been a developer for about 18 months now, mainly working on backend services. I love the technical work but I want to start leading projects and mentoring junior developers. Any advice on making that transition?", timestamp: '2025-11-05T13:45:00Z' }
-      ]
-    };
-    return conversations[pairId as keyof typeof conversations] || [];
+    return messages.filter(msg => msg.pairId === pairId);
   };
 
   // Filter conversations based on search
@@ -98,8 +103,17 @@ export function MentorMessagesPage() {
   const sendMessage = () => {
     if (!messageText.trim() || !selectedConversation) return;
     
-    // Here you would typically send the message to your backend
-    console.log('Sending message:', messageText);
+    // Create new message
+    const newMessage = {
+      id: `${selectedConversation}-${Date.now()}`,
+      pairId: selectedConversation,
+      sender: 'mentor',
+      content: messageText,
+      timestamp: new Date().toISOString()
+    };
+
+    // Add message to state
+    setMessages(prev => [...prev, newMessage]);
     setMessageText('');
   };
 
