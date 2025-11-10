@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /mentor/
+Disallow: /mentee/
+Allow: /
+Allow: /login
+Allow: /signup
+
+Sitemap: https://your-domain.vercel.app/sitemap.xml
