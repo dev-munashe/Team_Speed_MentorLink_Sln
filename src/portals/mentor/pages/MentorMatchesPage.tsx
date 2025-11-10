@@ -65,10 +65,7 @@ export function MentorMatchesPage() {
   };
 
   // Mock available time slots (combination of mentor and mentee availability)
-  const getAvailableSlots = (mentee: any) => {
-    const mentorSlots = ['Mon 18:00-20:00', 'Wed 17:00-19:00', 'Sat 10:00-12:00'];
-    const menteeSlots = mentee.availability_slots || [];
-    
+  const getAvailableSlots = () => {
     // Find overlapping time slots (simplified mock logic)
     const overlappingSlots = [
       'Mon 19:00-20:00',
@@ -446,7 +443,7 @@ export function MentorMatchesPage() {
                   <div>
                     <h3 className="text-sm font-medium text-gray-700 mb-3">Available Time Slots</h3>
                     <div className="space-y-2">
-                      {getAvailableSlots(selectedMenteeForScheduling).map((slot, index) => (
+                      {getAvailableSlots().map((slot, index) => (
                         <button
                           key={index}
                           onClick={() => setSelectedTimeSlot(slot)}
