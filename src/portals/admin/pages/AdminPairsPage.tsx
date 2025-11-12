@@ -21,7 +21,8 @@ export function AdminPairsPage() {
     pairs, 
     mentors, 
     mentees, 
-    swapPair
+    addSwapRequest,
+    admin
   } = useAppStore();
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -45,9 +46,27 @@ export function AdminPairsPage() {
     }
   };
 
-  const handleSwapPair = (newMentorId: string) => {
+  const handleSwapPair = (newMentorId: string, justification: string) => {
     if (selectedPair) {
-      swapPair(selectedPair.id, newMentorId);
+      // Create a swap request instead of performing the swap immediately
+      addSwapRequest({
+        pairId: selectedPair.id,
+        oldMentorId: selectedPair.mentorId,
+        newMentorId,
+        justification,
+        requestedBy: admin?.email || 'unknown'
+      });
+
+      // Log the swap request for audit
+      console.log('Swap request created:', {
+        pairId: selectedPair.id,
+        oldMentorId: selectedPair.mentorId,
+        newMentorId,
+        justification,
+        requestedBy: admin?.email || 'unknown',
+        timestamp: new Date().toISOString()
+      });
+
       setIsSwapDialogOpen(false);
       setSelectedPair(null);
     }

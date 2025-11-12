@@ -159,3 +159,17 @@ export interface MatchRequest {
   createdAt: Date;
   respondedAt?: Date;
 }
+
+// ===== SWAP REQUESTS =====
+export interface SwapRequest {
+  id: Id;
+  pairId: Id;
+  oldMentorId: Id;
+  newMentorId: Id;
+  justification: string;
+  requestedBy?: string; // admin id or email
+  status: 'PENDING' | 'APPROVED' | 'REJECTED';
+  createdAt: Date;
+  reviewedAt?: Date;
+  reviewedBy?: string;
+}

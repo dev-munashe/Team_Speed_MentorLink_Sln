@@ -7,7 +7,7 @@ interface PairTableProps {
   pairs: Pairing[];
   mentors: Mentor[];
   mentees: Mentee[];
-  onSwap: (pairId: string, newMentorId: string) => void;
+  onSwap: (pairId: string, newMentorId: string, justification: string) => void;
 }
 
 export function PairTable({ pairs, mentors, mentees, onSwap }: PairTableProps) {
@@ -22,9 +22,9 @@ export function PairTable({ pairs, mentors, mentees, onSwap }: PairTableProps) {
     setSwapDialogOpen(true);
   };
 
-  const handleSwapConfirm = (newMentorId: string) => {
+  const handleSwapConfirm = (newMentorId: string, justification: string) => {
     if (selectedPair) {
-      onSwap(selectedPair.id, newMentorId);
+      onSwap(selectedPair.id, newMentorId, justification);
       setSwapDialogOpen(false);
       setSelectedPair(null);
     }

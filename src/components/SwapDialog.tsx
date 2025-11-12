@@ -8,15 +8,31 @@ interface SwapDialogProps {
   mentors: Mentor[];
   mentees: Mentee[];
   currentPairs: Pairing[];
-  onSwap: (newMentorId: string) => void;
+  onSwap: (newMentorId: string, justification: string) => void;
   onCancel: () => void;
 }
 
 export function SwapDialog({ pair, mentors, mentees, currentPairs, onSwap, onCancel }: SwapDialogProps) {
   const [selectedMentorId, setSelectedMentorId] = useState(pair.mentorId);
   const [previewScore, setPreviewScore] = useState(pair.score);
+  const [justification, setJustification] = useState('');
+  const [customReason, setCustomReason] = useState('');
 
   const currentMentee = mentees.find(m => m.id === pair.menteeId);
+
+  // Predefined swap justification reasons
+  const swapReasons = [
+    'Better skill alignment',
+    'Schedule compatibility',
+    'Communication preferences',
+    'Geographic proximity',
+    'Industry experience match',
+    'Personality fit',
+    'Mentee request',
+    'Mentor request',
+    'Performance improvement',
+    'Other'
+  ];
 
   // Calculate current assignment counts
   const assignmentCounts = new Map<string, number>();
@@ -46,7 +62,8 @@ export function SwapDialog({ pair, mentors, mentees, currentPairs, onSwap, onCan
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (selectedMentorId !== pair.mentorId) {
-      onSwap(selectedMentorId);
+      const finalJustification = justification === 'Other' ? customReason : justification;
+      onSwap(selectedMentorId, finalJustification);
     } else {
       onCancel();
     }
@@ -84,6 +101,41 @@ export function SwapDialog({ pair, mentors, mentees, currentPairs, onSwap, onCan
               </select>
             </div>
 
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Reason for swap:
+              </label>
+              <select
+                value={justification}
+                onChange={(e) => setJustification(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              >
+                <option value="">Select a reason...</option>
+                {swapReasons.map(reason => (
+                  <option key={reason} value={reason}>
+                    {reason}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {justification === 'Other' && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Please specify:
+                </label>
+                <textarea
+                  value={customReason}
+                  onChange={(e) => setCustomReason(e.target.value)}
+                  placeholder="Enter your reason for this swap..."
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  rows={3}
+                  required
+                />
+              </div>
+            )}
+
             <div className="bg-gray-50 p-3 rounded-md">
               <div className="text-sm">
                 <div className="flex justify-between items-center">
@@ -111,9 +163,15 @@ export function SwapDialog({ pair, mentors, mentees, currentPairs, onSwap, onCan
               </button>
               <button
                 type="submit"
-                disabled={selectedMentorId === pair.mentorId}
+                disabled={
+                  selectedMentorId === pair.mentorId || 
+                  !justification || 
+                  (justification === 'Other' && !customReason.trim())
+                }
                 className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition-colors ${
-                  selectedMentorId === pair.mentorId
+                  selectedMentorId === pair.mentorId || 
+                  !justification || 
+                  (justification === 'Other' && !customReason.trim())
                     ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                     : 'bg-blue-600 text-white hover:bg-blue-700'
                 }`}

@@ -12,7 +12,6 @@ export function MenteeNavbar() {
   const navItems = [
     { path: '/mentee', label: 'Dashboard', exact: true },
     { path: '/mentee/profile', label: 'Profile' },
-    { path: '/mentee/browse', label: 'Browse Mentors' },
     { path: '/mentee/mentor', label: 'My Mentor' },
     { path: '/mentee/messages', label: 'Messages' }
   ];

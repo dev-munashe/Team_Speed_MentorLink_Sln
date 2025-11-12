@@ -216,9 +216,9 @@ export function AdminMatchingPage() {
                 pairs={pairs}
                 mentors={mentors}
                 mentees={mentees}
-                onSwap={(pairId: string, newMentorId: string) => {
+                onSwap={(pairId: string, newMentorId: string, justification: string) => {
                   // Handle pair swapping - this could update the store
-                  console.log('Swap pair:', pairId, newMentorId);
+                  console.log('Swap pair:', { pairId, newMentorId, justification });
                 }}
               />
             </div>
