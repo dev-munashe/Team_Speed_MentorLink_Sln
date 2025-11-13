@@ -1,6 +1,7 @@
 // src/portals/admin/pages/AdminPairsPage.tsx
 import { useState } from 'react';
 import { useAppStore } from '../../../store/useAppStore';
+import { computeScore } from '../../../utils/scoring';
 import { 
   Users, 
   Search, 
@@ -14,6 +15,7 @@ import {
 } from 'lucide-react';
 import { AdminPairsTable } from '../../../components/AdminPairsTable';
 import { SwapDialog } from '../../../components/SwapDialog';
+import { ManualPairDialog } from '../../../components/ManualPairDialog';
 import type { Pairing, PairStatus } from '../../../types/domain';
 
 export function AdminPairsPage() {
@@ -22,6 +24,7 @@ export function AdminPairsPage() {
     mentors, 
     mentees, 
     addSwapRequest,
+    addManualPair,
     admin
   } = useAppStore();
 
@@ -29,6 +32,7 @@ export function AdminPairsPage() {
   const [statusFilter, setStatusFilter] = useState<PairStatus | 'ALL'>('ALL');
   const [isSwapDialogOpen, setIsSwapDialogOpen] = useState(false);
   const [selectedPair, setSelectedPair] = useState<Pairing | null>(null);
+  const [isManualPairDialogOpen, setIsManualPairDialogOpen] = useState(false);
 
   // Action handlers
   const updatePairStatus = (pairId: string, status: PairStatus) => {
@@ -69,6 +73,23 @@ export function AdminPairsPage() {
 
       setIsSwapDialogOpen(false);
       setSelectedPair(null);
+    }
+  };
+
+  const handleCreateManualPair = (mentorId: string, menteeId: string, reason: string) => {
+    // Calculate the score for the new pair
+    const mentor = mentors.find(m => m.id === mentorId);
+    const mentee = mentees.find(m => m.id === menteeId);
+    
+    if (mentor && mentee) {
+      // Calculate current assignment count for the mentor
+      const currentAssigned = pairs.filter(p => p.mentorId === mentorId).length;
+      
+      // Calculate the compatibility score using the same algorithm
+      const { score } = computeScore(mentor, mentee, currentAssigned);
+      
+      addManualPair(mentorId, menteeId, score, reason);
+      setIsManualPairDialogOpen(false);
     }
   };
 
@@ -116,7 +137,10 @@ export function AdminPairsPage() {
             View and manage all mentor-mentee relationships
           </p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+        <button 
+          onClick={() => setIsManualPairDialogOpen(true)}
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        >
           <Plus size={20} />
           Create Manual Pair
         </button>
@@ -323,6 +347,17 @@ export function AdminPairsPage() {
             setIsSwapDialogOpen(false);
             setSelectedPair(null);
           }}
+        />
+      )}
+
+      {/* Manual Pair Dialog */}
+      {isManualPairDialogOpen && (
+        <ManualPairDialog
+          mentors={mentors}
+          mentees={mentees}
+          currentPairs={pairs}
+          onCreatePair={handleCreateManualPair}
+          onCancel={() => setIsManualPairDialogOpen(false)}
         />
       )}
     </div>

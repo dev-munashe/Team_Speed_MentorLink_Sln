@@ -22,6 +22,7 @@ interface AppState {
   swapPair: (pairId: string, newMentorId?: string, newMenteeId?: string) => void;
   addSwapRequest: (r: Omit<SwapRequest, 'id' | 'status' | 'createdAt' | 'reviewedAt' | 'reviewedBy'>) => void;
   approveSwapRequest: (requestId: string, approve: boolean, reviewer?: string) => void;
+  addManualPair: (mentorId: string, menteeId: string, score: number, reason: string) => void;
   resetAll: () => void;
 }
 
@@ -135,6 +136,31 @@ export const useAppStore = create<AppState>((set, get) => ({
     });
     set({ swapRequests });
     saveToStorage(get());
+  },
+
+  addManualPair: (mentorId, menteeId, score, reason) => {
+    const id = `manual-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+    const newPair: Pairing = {
+      id,
+      mentorId,
+      menteeId,
+      score,
+      status: 'NOT_SENT'
+    };
+    
+    const pairs = [...get().pairs, newPair];
+    set({ pairs });
+    saveToStorage(get());
+    
+    // Log the manual pair creation
+    console.log('Manual pair created:', {
+      pairId: id,
+      mentorId,
+      menteeId,
+      score,
+      reason,
+      timestamp: new Date().toISOString()
+    });
   },
   
   setTemplate: (template) => {
