@@ -25,7 +25,8 @@ export function AdminPairsPage() {
     mentees, 
     addSwapRequest,
     addManualPair,
-    admin
+    admin,
+    swapPair
   } = useAppStore();
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -52,7 +53,10 @@ export function AdminPairsPage() {
 
   const handleSwapPair = (newMentorId: string, justification: string) => {
     if (selectedPair) {
-      // Create a swap request instead of performing the swap immediately
+      // Perform the swap immediately to update UI
+      swapPair(selectedPair.id, newMentorId);
+
+      // Also create a swap request for audit trail
       addSwapRequest({
         pairId: selectedPair.id,
         oldMentorId: selectedPair.mentorId,
@@ -61,8 +65,8 @@ export function AdminPairsPage() {
         requestedBy: admin?.email || 'unknown'
       });
 
-      // Log the swap request for audit
-      console.log('Swap request created:', {
+      // Log the swap for audit
+      console.log('Swap completed:', {
         pairId: selectedPair.id,
         oldMentorId: selectedPair.mentorId,
         newMentorId,

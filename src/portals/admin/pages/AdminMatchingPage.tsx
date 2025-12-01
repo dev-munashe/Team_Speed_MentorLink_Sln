@@ -115,7 +115,7 @@ const ConfigureStep = ({
 
 export function AdminMatchingPage() {
   const navigate = useNavigate();
-  const { mentors, mentees, pairs, setPairs, setScores } = useAppStore();
+  const { mentors, mentees, pairs, setPairs, setScores, swapPair } = useAppStore();
   const [currentStep, setCurrentStep] = useState<MatchingStep>('configure');
   const [threshold, setThreshold] = useState(50);
   const [isLoading, setIsLoading] = useState(false);
@@ -217,8 +217,11 @@ export function AdminMatchingPage() {
                 mentors={mentors}
                 mentees={mentees}
                 onSwap={(pairId: string, newMentorId: string, justification: string) => {
-                  // Handle pair swapping - this could update the store
-                  console.log('Swap pair:', { pairId, newMentorId, justification });
+                  // Update the global store - this will trigger re-render
+                  swapPair(pairId, newMentorId);
+                  
+                  // Log for tracking/audit
+                  console.log('Swap completed:', { pairId, newMentorId, justification, timestamp: new Date().toISOString() });
                 }}
               />
             </div>
