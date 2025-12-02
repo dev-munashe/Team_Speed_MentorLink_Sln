@@ -17,15 +17,15 @@ export function MenteeProfilePage() {
   if (!menteeProfile) {
     menteeProfile = {
       id: 'mock-mentee-1',
-      name: 'Alex Johnson',
-      email: user?.email || 'mentee@mentorlink.com',
-      phone: '+1 (555) 987-6543',
+      name: 'Vimbai Mapfumo',
+      email: user?.email || 'mentee@uncommon.org',
+      phone: '+263 77 345 6789',
       program_track: 'Computer Science - Senior Year',
       goals: ['Land software engineering internship', 'Master system design', 'Build portfolio projects'],
       interests: ['Full-Stack Development', 'Machine Learning', 'Startup Culture'],
       preferred_skills: ['React', 'Python', 'System Design', 'Data Structures'],
       availability_slots: ['Mon 19:00-21:00', 'Wed 18:00-20:00', 'Fri 17:00-19:00'],
-      location: 'Austin, TX'
+      location: 'Harare, Zimbabwe'
     } as any;
   }
 

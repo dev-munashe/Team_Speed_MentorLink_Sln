@@ -88,10 +88,10 @@ export function MyMentorPage() {
   // Mock available mentors for change request
   const getAvailableMentors = () => {
     return [
-      { id: 'mentor-2', name: 'David Rodriguez', role: 'Tech Lead', org: 'StartupCorp', skills: ['Node.js', 'React', 'AWS'] },
-      { id: 'mentor-3', name: 'Lisa Wang', role: 'Engineering Manager', org: 'MegaTech', skills: ['Python', 'AI/ML', 'Leadership'] },
-      { id: 'mentor-4', name: 'James Smith', role: 'Senior Developer', org: 'CodeCraft', skills: ['Java', 'Spring', 'Microservices'] },
-      { id: 'mentor-5', name: 'Maria Garcia', role: 'Product Engineer', org: 'InnovateCorp', skills: ['React Native', 'Mobile', 'UX'] }
+      { id: 'mentor-2', name: 'Chipo Ncube', role: 'Tech Lead', org: 'Cassava Smartech', skills: ['Node.js', 'React', 'AWS'] },
+      { id: 'mentor-3', name: 'Rufaro Madzima', role: 'Engineering Manager', org: 'Steward Bank', skills: ['Python', 'AI/ML', 'Leadership'] },
+      { id: 'mentor-4', name: 'Tatenda Nyathi', role: 'Senior Developer', org: 'ZB Bank', skills: ['Java', 'Spring', 'Microservices'] },
+      { id: 'mentor-5', name: 'Rudo Chimedza', role: 'Product Engineer', org: 'Delta Beverages', skills: ['React Native', 'Mobile', 'UX'] }
     ];
   };
 

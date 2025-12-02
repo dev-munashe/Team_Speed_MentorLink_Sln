@@ -25,10 +25,10 @@ export function MenteeMessagesPage() {
   const mockMentors = [
     {
       id: 'mentor-1',
-      name: 'Sarah Chen',
-      email: 'sarah.chen@techcorp.com',
+      name: 'Tendai Moyo',
+      email: 'tendai.moyo@uncommon.org',
       role: 'Senior Software Engineer',
-      org: 'TechCorp Innovation Labs'
+      org: 'Econet Wireless'
     }
   ];
 
@@ -43,8 +43,8 @@ export function MenteeMessagesPage() {
         id: 'msg-1',
         conversationId: 'conv-1',
         senderId: 'mentor-1',
-        senderName: 'Sarah Chen',
-        text: 'Hi Alex! Great to be your mentor. I reviewed your goals and I think we can make excellent progress together.',
+        senderName: 'Tendai Moyo',
+        text: 'Hi Vimbai! Great to be your mentor. I reviewed your goals and I think we can make excellent progress together.',
         timestamp: '2025-11-07T10:30:00Z',
         isFromMentor: true
       },
@@ -52,7 +52,7 @@ export function MenteeMessagesPage() {
         id: 'msg-2',
         conversationId: 'conv-1',
         senderId: 'mentee-1',
-        senderName: 'Alex Johnson',
+        senderName: 'Vimbai Mapfumo',
         text: 'Thank you so much! I\'m really excited to learn from you. I\'ve been working on React but struggling with some advanced patterns.',
         timestamp: '2025-11-07T11:15:00Z',
         isFromMentor: false
@@ -61,7 +61,7 @@ export function MenteeMessagesPage() {
         id: 'msg-3',
         conversationId: 'conv-1',
         senderId: 'mentor-1',
-        senderName: 'Sarah Chen',
+        senderName: 'Tendai Moyo',
         text: 'Perfect! Let\'s start with custom hooks and context patterns. I\'ll send you some resources and we can discuss them in our next session.',
         timestamp: '2025-11-07T11:20:00Z',
         isFromMentor: true
@@ -70,7 +70,7 @@ export function MenteeMessagesPage() {
         id: 'msg-4',
         conversationId: 'conv-1',
         senderId: 'mentee-1',
-        senderName: 'Alex Johnson',
+        senderName: 'Vimbai Mapfumo',
         text: 'That sounds great! When would be a good time for our first session?',
         timestamp: '2025-11-07T14:45:00Z',
         isFromMentor: false
@@ -79,7 +79,7 @@ export function MenteeMessagesPage() {
         id: 'msg-5',
         conversationId: 'conv-1',
         senderId: 'mentor-1',
-        senderName: 'Sarah Chen',
+        senderName: 'Tendai Moyo',
         text: 'I have availability Monday 7-8 PM or Wednesday 6-7 PM this week. Which works better for you?',
         timestamp: '2025-11-08T09:15:00Z',
         isFromMentor: true
@@ -100,7 +100,7 @@ export function MenteeMessagesPage() {
       id: `msg-${Date.now()}`,
       conversationId: selectedConversation,
       senderId: 'mentee-1',
-      senderName: 'Alex Johnson',
+      senderName: 'Vimbai Mapfumo',
       text: messageText,
       timestamp: new Date().toISOString(),
       isFromMentor: false

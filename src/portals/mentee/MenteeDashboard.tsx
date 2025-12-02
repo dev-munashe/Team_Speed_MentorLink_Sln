@@ -151,10 +151,10 @@ export function MenteeDashboard() {
         <div className="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
           <div className="flex items-center space-x-3">
             <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-lg font-semibold">
-              SC
+              TM
             </div>
             <div>
-              <h4 className="font-medium text-gray-900">Sarah Chen</h4>
+              <h4 className="font-medium text-gray-900">Tendai Moyo</h4>
               <p className="text-sm text-gray-600">Senior Software Engineer • 8 years experience</p>
               <p className="text-xs text-gray-500">Specializes in React, TypeScript, System Design</p>
             </div>
