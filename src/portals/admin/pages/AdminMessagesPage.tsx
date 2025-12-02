@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useAppStore } from '../../../store/useAppStore';
 import { MessageSquare, Send, Users, Settings, Copy, Check, Mail, Clock, CheckCircle, ChevronDown, ChevronUp, X } from 'lucide-react';
+import type { Pairing } from '../../../types/domain';
 
 export function AdminMessagesPage() {
   const { 
@@ -18,38 +19,58 @@ export function AdminMessagesPage() {
   } = useAppStore();
 
   const [copySuccess, setCopySuccess] = useState<string | null>(null);
-  const [sendingPairs, setSendingPairs] = useState<Set<string>>(new Set());
   const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [expandedMessages, setExpandedMessages] = useState<Set<string>>(new Set());
   const [showSettings, setShowSettings] = useState(false);
 
-  // Mock send message function
+  // Send message via WhatsApp (proof of concept for flexible communication)
   const sendMessage = async (pairId: string) => {
-    setSendingPairs(prev => new Set([...prev, pairId]));
+    const pair = pairs.find(p => p.id === pairId);
+    if (!pair) return;
+
+    const mentor = getMentor(pair.mentorId);
+    const mentee = getMentee(pair.menteeId);
     
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    if (!mentor || !mentee) return;
+
+    // Generate the personalized message
+    const message = generateMessage(pair);
+    
+    // Use mentor's phone or a demo number
+    // In production, this would use actual phone numbers from the database
+    const phoneNumber = mentor.phone?.replace(/\D/g, '') || '263777123456'; // Demo Zimbabwe number
+    
+    // Encode message for URL
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Open WhatsApp with pre-filled message
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
     
     // Update pair status
     updatePairStatus(pairId, 'SENT');
-    setSendingPairs(prev => {
-      const newSet = new Set(prev);
-      newSet.delete(pairId);
-      return newSet;
-    });
 
     // Show success notification
     setShowSuccessToast(true);
     setTimeout(() => setShowSuccessToast(false), 3000);
   };
 
-  // Send all messages
+  // Send all messages (opens multiple WhatsApp windows - for demo only)
   const sendAllMessages = async () => {
     const unsent = pairs.filter(p => p.status === 'NOT_SENT');
+    if (unsent.length === 0) return;
+    
+    // Confirm before opening multiple WhatsApp windows
+    const confirmed = window.confirm(
+      `This will open ${unsent.length} WhatsApp windows. Continue?`
+    );
+    
+    if (!confirmed) return;
+    
     for (const pair of unsent) {
       await sendMessage(pair.id);
-      // Small delay between sends to show progress
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Delay between sends to avoid browser blocking popups
+      await new Promise(resolve => setTimeout(resolve, 1000));
     }
   };
 
@@ -71,7 +92,7 @@ export function AdminMessagesPage() {
   const getScoreReasons = (mentorId: string, menteeId: string) =>
     scores.find(s => s.mentorId === mentorId && s.menteeId === menteeId)?.reasons || [];
 
-  const generateMessage = (pair: any) => {
+  const generateMessage = (pair: Pairing) => {
     const mentor = getMentor(pair.mentorId);
     const mentee = getMentee(pair.menteeId);
     const reasons = getScoreReasons(pair.mentorId, pair.menteeId);
@@ -90,7 +111,7 @@ export function AdminMessagesPage() {
       program_name: programName || 'Mentorship Program',
       one_line_reason: oneLineReason,
       admin_name: admin.name || 'Program Administrator',
-      admin_email: admin.email || 'admin@program.com',
+      admin_email: admin.email || 'admin@uncommon.org',
       admin_phone: admin.phone || ''
     };
 
@@ -248,11 +269,11 @@ export function AdminMessagesPage() {
                 {pairs.filter(p => p.status === 'NOT_SENT').length > 0 && (
                   <button
                     onClick={sendAllMessages}
-                    disabled={sendingPairs.size > 0}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto justify-center"
+                    className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors w-full sm:w-auto justify-center"
+                    title="Send all via WhatsApp"
                   >
                     <Send size={16} />
-                    {sendingPairs.size > 0 ? 'Sending...' : 'Send All Messages'}
+                    Send All via WhatsApp
                   </button>
                 )}
               </div>
@@ -299,7 +320,6 @@ export function AdminMessagesPage() {
                   if (!mentor || !mentee) return null;
 
                   const isUnsent = pair.status === 'NOT_SENT';
-                  const isSending = sendingPairs.has(pair.id);
                   const isSent = pair.status === 'SENT';
 
                   return (
@@ -317,18 +337,10 @@ export function AdminMessagesPage() {
                             </h4>
                             <span className={`px-3 py-1 text-sm font-medium rounded-full self-start ${
                               isUnsent ? 'bg-yellow-100 text-yellow-800' :
-                              isSending ? 'bg-blue-100 text-blue-800' :
                               isSent ? 'bg-blue-100 text-blue-800' :
                               'bg-gray-100 text-gray-800'
                             }`}>
-                              {isSending ? (
-                                <div className="flex items-center gap-2">
-                                  <div className="animate-spin h-3 w-3 border-2 border-blue-600 border-t-transparent rounded-full"></div>
-                                  SENDING
-                                </div>
-                              ) : (
-                                pair.status.replace('_', ' ')
-                              )}
+                              {pair.status.replace('_', ' ')}
                             </span>
                           </div>
                           <div className="text-sm text-gray-600 break-words">
@@ -337,13 +349,14 @@ export function AdminMessagesPage() {
                         </div>
                         
                         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">{
-                          isUnsent && !isSending && (
+                          isUnsent && (
                             <button
                               onClick={() => sendMessage(pair.id)}
-                              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors justify-center"
+                              className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors justify-center"
+                              title="Send via WhatsApp"
                             >
                               <Send size={16} />
-                              Send Message
+                              Send via WhatsApp
                             </button>
                           )}
                           
@@ -392,7 +405,7 @@ export function AdminMessagesPage() {
                         </div>
                         
                         {/* Message content - always show for unsent, conditionally show for sent */}
-                        {(isUnsent || isSending || expandedMessages.has(pair.id)) ? (
+                        {(isUnsent || expandedMessages.has(pair.id)) ? (
                           <div className="text-xs sm:text-sm text-gray-700 whitespace-pre-wrap font-mono leading-relaxed overflow-x-auto">
                             {generateMessage(pair)}
                           </div>

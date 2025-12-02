@@ -179,32 +179,40 @@ This is your **main showcase**. Take your time here.
 
 ---
 
-### **2.5 Message Generation & Distribution** (2 mins)
+### **2.5 Message Generation & Distribution** (2 mins) ⭐ **WHATSAPP INTEGRATION DEMO**
 
 **Navigate to Messages Page:**
 
-1. **Customize Message Template**
-   - *"We automate the boring part - sending intro emails"*
+1. **Context-Aware Communication** ⭐ **KEY TALKING POINT**
+   - *"Notice we're using WhatsApp - this is intentional"*
+   - **Explain**: *"We designed this platform with Zimbabwe's reality in mind - data costs, network reliability, and how people actually communicate"*
+   - **Key Message**: *"The platform is flexible - it can integrate with ANY communication channel your organization prefers: WhatsApp, SMS, Email, or custom solutions. Today we're showing WhatsApp as a proof of concept"*
+   - Point out the info banner explaining this flexibility
+
+2. **Customize Message Template**
    - Show variable substitution: `{{mentor_name}}`, `{{mentee_name}}`, etc.
    - Edit template with program details
    - **Live preview with actual pair data**
 
-2. **Send Introduction Messages**
-   - Show list of pairs with status (NOT_SENT, SENT, etc.)
-   - Send individual message or bulk send
-   - Show status update in real-time
-   - Copy message to clipboard option
+3. **Send Introduction Messages via WhatsApp**
+   - Show list of pairs with status (NOT_SENT, SENT)
+   - Click "Send via WhatsApp" - opens WhatsApp with pre-filled message
+   - **Demonstrate**: Message includes mentor name, mentee info, match score, and reasoning
+   - Show status update when sent
+   - Copy message to clipboard option also available
 
-3. **Show Generated Messages**
+4. **Show Generated Messages**
    - Display personalized messages for each pair
    - *"Every message is customized with their match score reason"*
    - Show variables are correctly replaced
 
 ### **What Makes Us Win Here:**
+✅ **Context-aware design** - Built for Zimbabwean realities (data costs, networks)  
+✅ **Flexible integration** - Works with ANY communication platform  
 ✅ **Template system** - One template, personalized for all  
 ✅ **Variable substitution** - Dynamic content  
 ✅ **Status tracking** - Know what's been sent  
-✅ **Bulk operations** - Scale to hundreds of pairs
+✅ **Professional yet practical** - Balance between formality and accessibility
 
 ---
 
