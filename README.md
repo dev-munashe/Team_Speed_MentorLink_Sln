@@ -38,14 +38,15 @@ npm run build
 2. **Match**: Run algorithm with configurable threshold (40-80%)
 3. **Review**: Examine pairs, swap if needed, view scoring rationale
 4. **Messages**: Customize template, generate intro messages  
-5. **Track**: Monitor pair status from Not Sent  Sent  Meeting Booked
+5. **Track**: Monitor pair status from Not Sent → Sent/Active
 
 ## CSV Data Format
 
 ### Mentors CSV
 Required: 
 ame, email, skills, capacity, vailability_slots
-Optional: phone, ole, org, interests, location
+Optional: phone, 
+ole, org, interests, location
 
 ### Mentees CSV  
 Required: 

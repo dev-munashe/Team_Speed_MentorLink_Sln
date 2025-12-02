@@ -15,13 +15,13 @@ export function MentorDashboard() {
   // Use compelling mock data if no real pairs exist
   if (myPairs.length === 0) {
     myPairs = [
-      { id: 'pair-1', mentorId: 'mentor-1', menteeId: 'mentee-1', score: 94, status: 'BOOKED' as const },
-      { id: 'pair-2', mentorId: 'mentor-1', menteeId: 'mentee-2', score: 87, status: 'BOOKED' as const },
+      { id: 'pair-1', mentorId: 'mentor-1', menteeId: 'mentee-1', score: 94, status: 'SENT' as const },
+      { id: 'pair-2', mentorId: 'mentor-1', menteeId: 'mentee-2', score: 87, status: 'SENT' as const },
       { id: 'pair-3', mentorId: 'mentor-1', menteeId: 'mentee-3', score: 91, status: 'SENT' as const }
     ];
   }
   
-  const activePairs = myPairs.filter(p => p.status === 'BOOKED');
+  const activePairs = myPairs.filter(p => p.status === 'SENT');
 
   const quickStats = [
     { label: 'My Mentees', value: myPairs.length, icon: Users, color: 'blue' },
@@ -32,8 +32,8 @@ export function MentorDashboard() {
 
   // Mock mentee data for dashboard preview
   const mockMentees = [
-    { id: 'mentee-1', name: 'Jamie Thompson', score: 94, status: 'BOOKED' },
-    { id: 'mentee-2', name: 'Marcus Chen', score: 87, status: 'BOOKED' },
+    { id: 'mentee-1', name: 'Jamie Thompson', score: 94, status: 'SENT' },
+    { id: 'mentee-2', name: 'Marcus Chen', score: 87, status: 'SENT' },
     { id: 'mentee-3', name: 'Priya Patel', score: 91, status: 'SENT' }
   ];
 
@@ -173,9 +173,9 @@ export function MentorDashboard() {
                     </div>
                   </div>
                   <span className={`px-3 py-1 text-sm font-medium rounded-full ${
-                    pair.status === 'BOOKED' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'
+                    pair.status === 'SENT' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'
                   }`}>
-                    {pair.status === 'BOOKED' ? 'Active' : 'Contacted'}
+                    {pair.status === 'SENT' ? 'Active' : 'Contacted'}
                   </span>
                 </div>
               );

@@ -309,18 +309,6 @@ export function AdminMessagesPage() {
                   </div>
                 </div>
               </div>
-              
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-600" />
-                  <div>
-                    <p className="text-sm font-medium text-green-600">Active</p>
-                    <p className="text-lg font-bold text-green-900">
-                      {pairs.filter(p => p.status === 'BOOKED').length}
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {pairs.length === 0 ? (
@@ -339,13 +327,11 @@ export function AdminMessagesPage() {
                   const isUnsent = pair.status === 'NOT_SENT';
                   const isSending = sendingPairs.has(pair.id);
                   const isSent = pair.status === 'SENT';
-                  const isActive = pair.status === 'BOOKED';
 
                   return (
                     <div key={pair.id} className={`border rounded-lg p-6 transition-colors ${
                       isUnsent ? 'bg-yellow-50 border-yellow-200' :
                       isSent ? 'bg-blue-50 border-blue-200' :
-                      isActive ? 'bg-green-50 border-green-200' :
                       'bg-gray-50'
                     }`}>
                       {/* Header */}
@@ -359,7 +345,6 @@ export function AdminMessagesPage() {
                               isUnsent ? 'bg-yellow-100 text-yellow-800' :
                               isSending ? 'bg-blue-100 text-blue-800' :
                               isSent ? 'bg-blue-100 text-blue-800' :
-                              isActive ? 'bg-green-100 text-green-800' :
                               'bg-gray-100 text-gray-800'
                             }`}>
                               {isSending ? (
@@ -410,7 +395,7 @@ export function AdminMessagesPage() {
                           <h5 className="text-sm font-medium text-gray-700">Message Preview</h5>
                           <div className="flex items-center gap-2">
                             <span className="text-xs text-gray-500">Score: {pair.score}%</span>
-                            {(isSent || isActive) && (
+                            {isSent && (
                               <button
                                 onClick={() => toggleMessageExpansion(pair.id)}
                                 className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-700 transition-colors"
@@ -448,13 +433,6 @@ export function AdminMessagesPage() {
                         <div className="mt-3 flex items-start sm:items-center gap-2 text-xs sm:text-sm text-blue-600">
                           <CheckCircle size={16} className="flex-shrink-0 mt-0.5 sm:mt-0" />
                           <span>Message sent successfully on {new Date().toLocaleDateString()} at {new Date().toLocaleTimeString()}</span>
-                        </div>
-                      )}
-                      
-                      {isActive && (
-                        <div className="mt-3 flex items-start sm:items-center gap-2 text-xs sm:text-sm text-green-600">
-                          <CheckCircle size={16} className="flex-shrink-0 mt-0.5 sm:mt-0" />
-                          <span>Mentoring relationship is now active</span>
                         </div>
                       )}
                     </div>

@@ -90,7 +90,7 @@ export function MentorMatchesPage() {
         mentorId: 'mentor-1',
         menteeId: 'mentee-1',
         score: 94,
-        status: 'BOOKED' as const
+        status: 'SENT' as const
       },
       {
         id: 'pair-2', 
@@ -104,7 +104,7 @@ export function MentorMatchesPage() {
         mentorId: 'mentor-1', 
         menteeId: 'mentee-3',
         score: 91,
-        status: 'BOOKED' as const
+        status: 'SENT' as const
       }
     ];
   }
@@ -157,10 +157,8 @@ export function MentorMatchesPage() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'BOOKED':
-        return 'bg-green-100 text-green-800';
       case 'SENT':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-green-100 text-green-800';
       case 'NOT_SENT':
         return 'bg-yellow-100 text-yellow-800';
       default:
@@ -210,7 +208,7 @@ export function MentorMatchesPage() {
             <div>
               <p className="text-sm font-medium text-gray-600">Active Connections</p>
               <p className="text-xl font-bold text-gray-900">
-                {myPairs.filter(p => p.status === 'BOOKED').length}
+                {myPairs.filter(p => p.status === 'SENT').length}
               </p>
             </div>
           </div>
@@ -261,7 +259,7 @@ export function MentorMatchesPage() {
                       <div className="flex items-center gap-3 mb-2">
                         <h3 className="text-lg font-semibold text-gray-900">{mentee.name}</h3>
                         <span className={`px-3 py-1 text-sm font-medium rounded-full ${getStatusColor(pair.status)}`}>
-                          {pair.status === 'BOOKED' ? 'Active' : 
+                          {pair.status === 'SENT' ? 'Active' : 
                            pair.status === 'SENT' ? 'Contacted' : 
                            'Pending Contact'}
                         </span>

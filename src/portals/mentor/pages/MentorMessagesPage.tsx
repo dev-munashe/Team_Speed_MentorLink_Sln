@@ -59,8 +59,8 @@ export function MentorMessagesPage() {
   // Mock data for compelling demonstration
   if (myPairs.length === 0) {
     myPairs = [
-      { id: 'pair-1', mentorId: 'mentor-1', menteeId: 'mentee-1', score: 94, status: 'BOOKED' as const },
-      { id: 'pair-2', mentorId: 'mentor-1', menteeId: 'mentee-2', score: 87, status: 'BOOKED' as const },
+      { id: 'pair-1', mentorId: 'mentor-1', menteeId: 'mentee-1', score: 94, status: 'SENT' as const },
+      { id: 'pair-2', mentorId: 'mentor-1', menteeId: 'mentee-2', score: 87, status: 'SENT' as const },
       { id: 'pair-3', mentorId: 'mentor-1', menteeId: 'mentee-3', score: 91, status: 'SENT' as const }
     ];
   }
@@ -135,7 +135,7 @@ export function MentorMessagesPage() {
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="text-center">
               <div className="text-2xl font-bold text-green-600">
-                {myPairs.filter(p => p.status === 'BOOKED').length}
+                {myPairs.filter(p => p.status === 'SENT').length}
               </div>
               <div className="text-sm text-gray-600 font-medium">Active Chats</div>
             </div>
@@ -181,7 +181,7 @@ export function MentorMessagesPage() {
                     if (!mentee) return null;
 
                     const isSelected = selectedConversation === pair.id;
-                    const isActive = pair.status === 'BOOKED';
+                    const isActive = pair.status === 'SENT';
 
                     return (
                       <div

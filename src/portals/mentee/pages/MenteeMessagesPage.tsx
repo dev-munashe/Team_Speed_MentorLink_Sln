@@ -12,12 +12,12 @@ export function MenteeMessagesPage() {
   const [messages, setMessages] = useState<any[]>([]);
 
   // Find this mentee's conversations (simplified - in real app would find by mentee ID)
-  let myConversations = pairs.filter(pair => pair.status === 'BOOKED');
+  let myConversations = pairs.filter(pair => pair.status === 'SENT');
 
   // Mock conversations for demonstration
   if (myConversations.length === 0) {
     myConversations = [
-      { id: 'conv-1', mentorId: 'mentor-1', menteeId: 'mentee-1', score: 94, status: 'BOOKED' as const }
+      { id: 'conv-1', mentorId: 'mentor-1', menteeId: 'mentee-1', score: 94, status: 'SENT' as const }
     ];
   }
 

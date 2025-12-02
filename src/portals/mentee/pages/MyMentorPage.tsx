@@ -96,11 +96,11 @@ export function MyMentorPage() {
   };
 
   // Find this mentee's mentor pairing - Always show as assigned for demo
-  let myPair = pairs.find(pair => pair.status === 'BOOKED') || {
+  let myPair = pairs.find(pair => pair.status === 'SENT') || {
     id: 'demo-pair',
     mentorId: 'mentor-1',
     menteeId: user?.id || 'mentee-1',
-    status: 'BOOKED' as const,
+    status: 'SENT' as const,
     score: 94,
     created: new Date().toISOString(),
     booked: new Date().toISOString()

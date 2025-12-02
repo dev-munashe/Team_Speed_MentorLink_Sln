@@ -118,7 +118,7 @@ export function AdminPairsPage() {
   // Statistics
   const stats = {
     total: pairs.length,
-    active: pairs.filter(p => p.status === 'BOOKED').length,
+    active: pairs.filter(p => p.status === 'SENT').length,
     pending: pairs.filter(p => p.status === 'SENT').length,
     notSent: pairs.filter(p => p.status === 'NOT_SENT').length,
     avgScore: pairs.length > 0 ? Math.round(pairs.reduce((sum, p) => sum + p.score, 0) / pairs.length) : 0
@@ -126,9 +126,8 @@ export function AdminPairsPage() {
 
   const statusOptions: { value: PairStatus | 'ALL'; label: string; color: string }[] = [
     { value: 'ALL', label: 'All Pairs', color: 'text-gray-600' },
-    { value: 'NOT_SENT', label: 'Not Sent', color: 'text-yellow-600' },
-    { value: 'SENT', label: 'Sent', color: 'text-blue-600' },
-    { value: 'BOOKED', label: 'Active', color: 'text-green-600' }
+    { value: 'NOT_SENT', label: 'Ready to Send', color: 'text-yellow-600' },
+    { value: 'SENT', label: 'Active', color: 'text-green-600' }
   ];
 
   return (

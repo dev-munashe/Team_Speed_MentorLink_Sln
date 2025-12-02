@@ -89,7 +89,7 @@ export interface MatchScore {
   reasons: { key: string; contribution: number; note?: string }[];
 }
 
-export type PairStatus = "NOT_SENT" | "SENT" | "BOOKED";
+export type PairStatus = "NOT_SENT" | "SENT";
 
 export interface Pairing {
   id: Id;
