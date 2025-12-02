@@ -18,6 +18,7 @@ export function MentorMatchesPage() {
   const [selectedMenteeForScheduling, setSelectedMenteeForScheduling] = useState<any>(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>('');
   const [scheduleConfirmed, setScheduleConfirmed] = useState(false);
+  const [scheduledSessions, setScheduledSessions] = useState<Record<string, string>>({});
 
   // Toggle card expansion
   const toggleCard = (pairId: string) => {
@@ -57,9 +58,13 @@ export function MentorMatchesPage() {
 
   // Confirm scheduling
   const confirmSchedule = () => {
-    if (!selectedTimeSlot) return;
+    if (!selectedTimeSlot || !selectedMenteeForScheduling) return;
     setScheduleConfirmed(true);
     setTimeout(() => {
+      setScheduledSessions(prev => ({
+        ...prev,
+        [selectedMenteeForScheduling.pairId]: selectedTimeSlot
+      }));
       closeScheduleModal();
     }, 2000);
   };
@@ -294,13 +299,29 @@ export function MentorMatchesPage() {
                           <MessageSquare size={16} />
                           <span className="hidden sm:inline">Message</span>
                         </button>
-                        <button 
-                          onClick={() => openScheduleModal(pair)}
-                          className="flex items-center gap-2 px-4 py-2 text-blue-600 border border-blue-300 rounded-lg hover:bg-blue-50 transition-colors"
-                        >
-                          <Calendar size={16} />
-                          <span className="hidden sm:inline">Schedule</span>
-                        </button>
+                        {scheduledSessions[pair.id] ? (
+                          <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 px-3 py-2 bg-green-50 text-green-700 border border-green-200 rounded-lg">
+                              <Calendar size={16} />
+                              <span className="font-medium text-sm">{scheduledSessions[pair.id]}</span>
+                            </div>
+                            <button 
+                              onClick={() => openScheduleModal(pair)}
+                              className="p-2 text-blue-600 border border-blue-300 rounded-lg hover:bg-blue-50 transition-colors"
+                              title="Reschedule session"
+                            >
+                              <Clock size={16} />
+                            </button>
+                          </div>
+                        ) : (
+                          <button 
+                            onClick={() => openScheduleModal(pair)}
+                            className="flex items-center gap-2 px-4 py-2 text-blue-600 border border-blue-300 rounded-lg hover:bg-blue-50 transition-colors"
+                          >
+                            <Calendar size={16} />
+                            <span className="hidden sm:inline">Schedule</span>
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -408,7 +429,7 @@ export function MentorMatchesPage() {
               {/* Modal Header */}
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-semibold text-gray-900">
-                  Schedule Session with {selectedMenteeForScheduling.name}
+                  {scheduledSessions[selectedMenteeForScheduling.pairId] ? 'Reschedule' : 'Schedule'} Session with {selectedMenteeForScheduling.name}
                 </h2>
                 <button
                   onClick={closeScheduleModal}

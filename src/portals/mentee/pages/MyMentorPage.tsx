@@ -14,6 +14,7 @@ export function MyMentorPage() {
   const [showScheduleModal, setShowScheduleModal] = useState(false);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>('');
   const [scheduleConfirmed, setScheduleConfirmed] = useState(false);
+  const [scheduledSession, setScheduledSession] = useState<string | null>(null);
 
   // State for mentor change functionality
   const [showChangeModal, setShowChangeModal] = useState(false);
@@ -45,6 +46,7 @@ export function MyMentorPage() {
     if (!selectedTimeSlot) return;
     setScheduleConfirmed(true);
     setTimeout(() => {
+      setScheduledSession(selectedTimeSlot);
       closeScheduleModal();
     }, 2000);
   };
@@ -173,13 +175,29 @@ export function MyMentorPage() {
                   <MessageSquare size={16} />
                   Message
                 </button>
-                <button 
-                  onClick={openScheduleModal}
-                  className="flex items-center gap-2 px-4 py-2 text-blue-600 border border-blue-300 rounded-lg hover:bg-blue-50 transition-colors"
-                >
-                  <Calendar size={16} />
-                  Schedule
-                </button>
+                {scheduledSession ? (
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 px-4 py-2 bg-green-50 text-green-700 border border-green-200 rounded-lg">
+                      <Calendar size={16} />
+                      <span className="font-medium">{scheduledSession}</span>
+                    </div>
+                    <button 
+                      onClick={openScheduleModal}
+                      className="flex items-center gap-2 px-3 py-2 text-blue-600 border border-blue-300 rounded-lg hover:bg-blue-50 transition-colors"
+                      title="Reschedule session"
+                    >
+                      <RefreshCw size={16} />
+                    </button>
+                  </div>
+                ) : (
+                  <button 
+                    onClick={openScheduleModal}
+                    className="flex items-center gap-2 px-4 py-2 text-blue-600 border border-blue-300 rounded-lg hover:bg-blue-50 transition-colors"
+                  >
+                    <Calendar size={16} />
+                    Schedule
+                  </button>
+                )}
                 <button 
                   onClick={openChangeModal}
                   className="flex items-center gap-2 px-4 py-2 text-orange-600 border border-orange-300 rounded-lg hover:bg-orange-50 transition-colors"
@@ -310,7 +328,7 @@ export function MyMentorPage() {
               {/* Modal Header */}
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-semibold text-gray-900">
-                  Schedule Session with {mentor.name}
+                  {scheduledSession ? 'Reschedule' : 'Schedule'} Session with {mentor.name}
                 </h2>
                 <button
                   onClick={closeScheduleModal}
