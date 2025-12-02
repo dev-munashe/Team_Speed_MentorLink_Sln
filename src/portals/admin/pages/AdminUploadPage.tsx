@@ -1,8 +1,9 @@
 // src/portals/admin/pages/AdminUploadPage.tsx
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UploadCsv } from '../../../components/UploadCsv';
 import { useAppStore } from '../../../store/useAppStore';
-import { Upload, Users, Target, CheckCircle2 } from 'lucide-react';
+import { Upload, Users, Target, CheckCircle2, Trash2, AlertTriangle } from 'lucide-react';
 import type { Mentor, Mentee } from '../../../types/domain';
 
 export function AdminUploadPage() {
@@ -11,8 +12,15 @@ export function AdminUploadPage() {
     mentors, 
     mentees, 
     setMentors, 
-    setMentees
+    setMentees,
+    resetAll
   } = useAppStore();
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
+
+  const handleReset = () => {
+    resetAll();
+    setShowResetConfirm(false);
+  };
 
   const handleMentorsUpload = (data: Mentor[] | Mentee[]) => {
     setMentors(data as Mentor[]);
@@ -27,12 +35,56 @@ export function AdminUploadPage() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="text-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Upload Data</h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Import your mentor and mentee data to get started with the matching process
-        </p>
+      <div className="flex items-center justify-between">
+        <div className="flex-1">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Upload Data</h1>
+          <p className="text-lg text-gray-600">
+            Import your mentor and mentee data to get started with the matching process
+          </p>
+        </div>
+        {(mentors.length > 0 || mentees.length > 0) && (
+          <button
+            onClick={() => setShowResetConfirm(true)}
+            className="flex items-center gap-2 px-4 py-2 text-red-600 bg-red-50 hover:bg-red-100 border border-red-200 rounded-lg transition-colors"
+          >
+            <Trash2 className="w-4 h-4" />
+            <span className="font-medium">Clear All</span>
+          </button>
+        )}
       </div>
+
+      {/* Reset Confirmation Dialog */}
+      {showResetConfirm && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 bg-red-100 rounded-full">
+                <AlertTriangle className="w-6 h-6 text-red-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900">
+                Clear All Data?
+              </h3>
+            </div>
+            <p className="text-gray-600 mb-6">
+              This will permanently delete all uploaded mentors, mentees, and any existing pairs. You'll need to re-upload your CSV files to start fresh.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowResetConfirm(false)}
+                className="flex-1 px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors font-medium"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleReset}
+                className="flex-1 px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors font-medium"
+              >
+                Yes, Clear All
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Upload Status Cards */}
       <div className="grid gap-6 md:grid-cols-2">

@@ -1,12 +1,19 @@
 // src/portals/admin/AdminDashboard.tsx
 import { Link } from 'react-router-dom';
-import { Upload, Users, MessageSquare, Settings, UserCheck } from 'lucide-react';
+import { Upload, Users, MessageSquare, Settings, UserCheck, Trash2, AlertTriangle } from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
 import { useAuth } from '../../contexts/AuthContext';
+import { useState } from 'react';
 
 export function AdminDashboard() {
-  const { mentors, mentees, pairs } = useAppStore();
+  const { mentors, mentees, pairs, resetAll } = useAppStore();
   const { user } = useAuth();
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
+
+  const handleReset = () => {
+    resetAll();
+    setShowResetConfirm(false);
+  };
 
   const quickStats = [
     { label: 'Mentors', value: mentors.length, icon: Users, color: 'blue' },
@@ -48,6 +55,56 @@ export function AdminDashboard() {
 
   return (
     <div className="space-y-8">
+      {/* Header with Reset Button */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
+          <p className="text-gray-600 mt-1">Welcome back, {user?.email}</p>
+        </div>
+        {(mentors.length > 0 || mentees.length > 0 || pairs.length > 0) && (
+          <button
+            onClick={() => setShowResetConfirm(true)}
+            className="flex items-center gap-2 px-4 py-2 text-red-600 bg-red-50 hover:bg-red-100 border border-red-200 rounded-lg transition-colors"
+          >
+            <Trash2 className="w-4 h-4" />
+            <span className="font-medium">Clear All Data</span>
+          </button>
+        )}
+      </div>
+
+      {/* Reset Confirmation Dialog */}
+      {showResetConfirm && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 bg-red-100 rounded-full">
+                <AlertTriangle className="w-6 h-6 text-red-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900">
+                Clear All Data?
+              </h3>
+            </div>
+            <p className="text-gray-600 mb-6">
+              This will permanently delete all mentors, mentees, pairs, messages, and settings. This action cannot be undone.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowResetConfirm(false)}
+                className="flex-1 px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors font-medium"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleReset}
+                className="flex-1 px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors font-medium"
+              >
+                Yes, Clear All
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-sm border border-blue-100 p-8">
         <div className="flex items-center justify-between">
