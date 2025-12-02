@@ -1,9 +1,9 @@
 name,email,preferred_skills,availability_slots,location,interests,program_track
-John Doe,john@student.edu,"JavaScript,React","Mon 18:00-20:00,Wed 18:00-20:00",San Francisco,"Web Development,Startups",Frontend Development
-Jane Smith,jane@learner.com,"Python,Machine Learning","Tue 17:00-19:00,Thu 17:00-19:00",New York,"Data Science,AI",Data Analytics
-Mike Johnson,mike@bootcamp.com,"Product Management","Mon 19:00-21:00,Fri 18:00-20:00",Austin,"Strategy,Leadership",Product Track
-Sarah Wilson,sarah@coding.edu,"Java,Backend Development","Wed 17:30-19:30,Sat 10:00-12:00",Seattle,"Software Engineering,Microservices",Backend Development
-Lisa Brown,lisa@marketing.com,"Marketing,Digital Marketing","Tue 18:00-20:00,Thu 18:00-20:00",Denver,"Growth,Analytics",Marketing Track
-Alex Chen,alex@developer.com,"React,Node.js","Mon 18:00-20:00,Wed 18:00-20:00",San Francisco,"Full Stack,Startups",Full Stack Development
-Maria Garcia,maria@analyst.com,"Python,Data Analysis","Tue 17:00-19:00,Thu 17:00-19:00",New York,"Data Visualization,Statistics",Data Science Track
-Tom Anderson,tom@product.com,"Product Strategy","Mon 19:00-21:00,Fri 18:00-20:00",Austin,"User Research,Design Thinking",Product Management
+Kudzai Chigwedere,kudzai.c@uncommon.org,"JavaScript,React","Mon 18:00-20:00,Wed 18:00-20:00",Harare,"Web Development,Startups",Frontend Development
+Panashe Mandaza,panashe.m@uncommon.org,"Python,Machine Learning","Tue 17:00-19:00,Thu 17:00-19:00",Bulawayo,"Data Science,AI",Data Analytics
+Tinotenda Sibanda,tino.s@uncommon.org,"Product Management","Mon 19:00-21:00,Fri 18:00-20:00",Harare,"Strategy,Leadership",Product Track
+Vimbai Mapfumo,vimbai.m@uncommon.org,"Java,Backend Development","Wed 17:30-19:30,Sat 10:00-12:00",Gweru,"Software Engineering,Microservices",Backend Development
+Shamiso Khumalo,shamiso.k@uncommon.org,"Marketing,Digital Marketing","Tue 18:00-20:00,Thu 18:00-20:00",Mutare,"Growth,Analytics",Marketing Track
+Takudzwa Mugabe,taku.m@uncommon.org,"React,Node.js","Mon 18:00-20:00,Wed 18:00-20:00",Harare,"Full Stack,Startups",Full Stack Development
+Rumbidzai Ncube,rumbi.n@uncommon.org,"Python,Data Analysis","Tue 17:00-19:00,Thu 17:00-19:00",Bulawayo,"Data Visualization,Statistics",Data Science Track
+Munyaradzi Dube,munya.d@uncommon.org,"Product Strategy","Mon 19:00-21:00,Fri 18:00-20:00",Harare,"User Research,Design Thinking",Product Management

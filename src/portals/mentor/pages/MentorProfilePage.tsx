@@ -366,9 +366,9 @@ export function MentorProfilePage() {
         <div className="mt-6 bg-gray-50 rounded-lg p-4">
           <h3 className="font-medium text-gray-900 mb-2">Recent Testimonial</h3>
           <blockquote className="italic text-gray-700">
-            "Sarah's guidance was instrumental in my career transition. Her technical expertise and empathetic approach helped me land my dream job at a top tech company. Highly recommend!"
+            "Tendai's guidance was instrumental in my career transition. Her technical expertise and empathetic approach helped me land my dream job at a top tech company. Highly recommend!"
           </blockquote>
-          <cite className="text-sm text-gray-600 mt-2 block">- Alex Rodriguez, Software Engineer</cite>
+          <cite className="text-sm text-gray-600 mt-2 block">- Kudzai Chigwedere, Software Engineer</cite>
         </div>
       </div>
     </div>

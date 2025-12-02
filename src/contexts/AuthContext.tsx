@@ -10,7 +10,7 @@ import type {
   MenteeProfile
 } from '../types';
 
-const AuthContext = createContext<AuthContextType | null>(null);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // Mock users for demo/prototype (replace with real API later)
 const MOCK_USERS: User[] = [
@@ -49,20 +49,20 @@ const MOCK_PROFILES: Record<string, AdminProfile | MentorProfile | MenteeProfile
     id: 'admin-profile-1',
     userId: 'admin-1',
     name: 'System Administrator',
-    phone: '+1-555-0123',
+    phone: '+263 77 000 0000',
     permissions: ['upload_csv', 'run_matching', 'view_all_users', 'manage_pairings']
   } as AdminProfile,
   'mentor-profile-1': {
     id: 'mentor-profile-1',
     userId: 'mentor-1',
-    name: 'John Doe',
-    email: 'mentor@mentorlink.com',
-    phone: '+1-555-0124',
+    name: 'Tendai Moyo',
+    email: 'mentor@uncommon.org',
+    phone: '+263 77 123 4567',
     skills: ['JavaScript', 'React', 'Node.js'],
     interests: ['Web Development', 'Startups'],
     capacity: 3,
     availability_slots: ['Mon 17:00-19:00', 'Wed 17:00-19:00'],
-    location: 'San Francisco',
+    location: 'Harare',
     bio: 'Senior Software Engineer with 8 years of experience',
     experience: 'Full-stack developer specializing in React and Node.js',
     isAvailable: true,
@@ -72,15 +72,15 @@ const MOCK_PROFILES: Record<string, AdminProfile | MentorProfile | MenteeProfile
   'mentee-profile-1': {
     id: 'mentee-profile-1',
     userId: 'mentee-1',
-    name: 'Jane Smith',
-    email: 'mentee@mentorlink.com',
-    phone: '+1-555-0125',
+    name: 'Kudzai Chigwedere',
+    email: 'mentee@uncommon.org',
+    phone: '+263 77 234 5678',
     program_track: 'Web Development',
     goals: ['Learn React', 'Build portfolio', 'Get job'],
     interests: ['Frontend Development', 'UI/UX'],
     preferred_skills: ['JavaScript', 'React', 'CSS'],
     availability_slots: ['Mon 17:00-19:00', 'Tue 19:00-21:00'],
-    location: 'San Francisco',
+    location: 'Harare',
     bio: 'Aspiring web developer transitioning from marketing',
     background: 'Marketing professional looking to switch to tech'
   } as MenteeProfile

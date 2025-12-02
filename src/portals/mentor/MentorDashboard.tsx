@@ -32,8 +32,8 @@ export function MentorDashboard() {
 
   // Mock mentee data for dashboard preview
   const mockMentees = [
-    { id: 'mentee-1', name: 'Jamie Thompson', score: 94, status: 'SENT' },
-    { id: 'mentee-2', name: 'Marcus Chen', score: 87, status: 'SENT' },
+    { id: 'mentee-1', name: 'Kudzai Chigwedere', score: 94, status: 'SENT' },
+    { id: 'mentee-2', name: 'Panashe Mandaza', score: 87, status: 'SENT' },
     { id: 'mentee-3', name: 'Priya Patel', score: 91, status: 'SENT' }
   ];
 

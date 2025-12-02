@@ -109,13 +109,13 @@ export function MyMentorPage() {
   // Mock mentor data for demonstration
   const mockMentor = {
     id: 'mentor-1',
-    name: 'Sarah Chen',
-    email: 'sarah.chen@techcorp.com',
-    phone: '+1 (555) 123-4567',
+    name: 'Tendai Moyo',
+    email: 'tendai.moyo@uncommon.org',
+    phone: '+263 77 123 4567',
     role: 'Senior Software Engineer',
-    org: 'TechCorp Innovation Labs',
+    org: 'Econet Wireless',
     skills: ['React', 'TypeScript', 'System Design', 'Team Leadership'],
-    location: 'San Francisco, CA',
+    location: 'Harare',
     experience_years: 8,
     rating: 4.9,
     total_mentees: 12

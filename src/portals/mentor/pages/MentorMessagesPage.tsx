@@ -68,18 +68,18 @@ export function MentorMessagesPage() {
   const mockMentees = [
     {
       id: 'mentee-1', 
-      name: 'Jamie Thompson',
-      email: 'jamie.thompson@university.edu'
+      name: 'Kudzai Chigwedere',
+      email: 'kudzai.c@uncommon.org'
     },
     {
       id: 'mentee-2',
-      name: 'Marcus Chen', 
-      email: 'marcus.chen@bootcamp.io'
+      name: 'Panashe Mandaza', 
+      email: 'panashe.m@uncommon.org'
     },
     {
       id: 'mentee-3',
-      name: 'Priya Patel',
-      email: 'priya.patel@techstart.com'
+      name: 'Tinotenda Sibanda',
+      email: 'tino.s@uncommon.org'
     }
   ];
 
