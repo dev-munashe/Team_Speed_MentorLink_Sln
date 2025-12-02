@@ -51,7 +51,7 @@
    - Navigate to login page
 
 2. **Login as Admin**
-   - Email: `admin@mentorlink.com`
+   - Email: `admin@uncommon.org`
    - Password: `admin123`
    - *"Each role has a completely different experience tailored to their needs"*
 
@@ -228,7 +228,7 @@ This is your **main showcase**. Take your time here.
 
 **Switch roles:**
 - Logout from admin
-- Login as mentor: `mentor@mentorlink.com` / `mentor123`
+- Login as mentor: `mentor@uncommon.org` / `mentor123`
 
 **Show Mentor Portal:**
 - View assigned mentees
@@ -239,7 +239,7 @@ This is your **main showcase**. Take your time here.
 
 ### **3.2 Switch to Mentee** (1 min)
 
-**Login as mentee:** `mentee@mentorlink.com` / `mentee123`
+**Login as mentee:** `mentee@uncommon.org` / `mentee123`
 
 **Show Mentee Portal:**
 - View assigned mentor

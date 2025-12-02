@@ -44,9 +44,9 @@ export function LoginForm({ onSuccess, onSwitchToSignup }: LoginFormProps) {
         <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
           <h3 className="text-sm font-medium text-blue-900 mb-2">Demo Accounts:</h3>
           <div className="text-xs text-blue-700 space-y-1">
-            <div><strong>Admin:</strong> admin@mentorlink.com / admin123</div>
-            <div><strong>Mentor:</strong> mentor@mentorlink.com / mentor123</div>
-            <div><strong>Mentee:</strong> mentee@mentorlink.com / mentee123</div>
+            <div><strong>Admin:</strong> admin@uncommon.org / admin123</div>
+            <div><strong>Mentor:</strong> mentor@uncommon.org / mentor123</div>
+            <div><strong>Mentee:</strong> mentee@uncommon.org / mentee123</div>
           </div>
         </div>
 

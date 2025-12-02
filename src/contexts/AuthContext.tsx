@@ -16,7 +16,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 const MOCK_USERS: User[] = [
   {
     id: 'admin-1',
-    email: 'admin@mentorlink.com',
+    email: 'admin@uncommon.org',
     password: 'admin123',
     role: 'admin',
     isActive: true,
@@ -25,7 +25,7 @@ const MOCK_USERS: User[] = [
   },
   {
     id: 'mentor-1',
-    email: 'mentor@mentorlink.com',
+    email: 'mentor@uncommon.org',
     password: 'mentor123',
     role: 'mentor',
     isActive: true,
@@ -34,7 +34,7 @@ const MOCK_USERS: User[] = [
   },
   {
     id: 'mentee-1',
-    email: 'mentee@mentorlink.com',
+    email: 'mentee@uncommon.org',
     password: 'mentee123',
     role: 'mentee',
     isActive: true,
