@@ -6,7 +6,6 @@ import { MessageSquare, Send, Users, Settings, Copy, Check, Mail, Clock, CheckCi
 export function AdminMessagesPage() {
   const { 
     template, 
-    setTemplate, 
     programName, 
     setProgramName, 
     admin, 
@@ -22,8 +21,6 @@ export function AdminMessagesPage() {
   const [sendingPairs, setSendingPairs] = useState<Set<string>>(new Set());
   const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [expandedMessages, setExpandedMessages] = useState<Set<string>>(new Set());
-  const [editingPair, setEditingPair] = useState<string | null>(null);
-  const [editedMessages, setEditedMessages] = useState<Record<string, string>>({});
   const [showSettings, setShowSettings] = useState(false);
 
   // Mock send message function
@@ -69,35 +66,12 @@ export function AdminMessagesPage() {
     });
   };
 
-  // Handle editing a message
-  const startEditingMessage = (pairId: string) => {
-    const message = generateMessage(pairs.find(p => p.id === pairId)!);
-    setEditedMessages({ ...editedMessages, [pairId]: message });
-    setEditingPair(pairId);
-  };
-
-  const saveEditedMessage = (pairId: string) => {
-    setEditingPair(null);
-  };
-
-  const cancelEditingMessage = (pairId: string) => {
-    const newEdited = { ...editedMessages };
-    delete newEdited[pairId];
-    setEditedMessages(newEdited);
-    setEditingPair(null);
-  };
-
   const getMentor = (mentorId: string) => mentors.find(m => m.id === mentorId);
   const getMentee = (menteeId: string) => mentees.find(m => m.id === menteeId);
   const getScoreReasons = (mentorId: string, menteeId: string) =>
     scores.find(s => s.mentorId === mentorId && s.menteeId === menteeId)?.reasons || [];
 
   const generateMessage = (pair: any) => {
-    // If there's an edited version, use that
-    if (editedMessages[pair.id]) {
-      return editedMessages[pair.id];
-    }
-
     const mentor = getMentor(pair.mentorId);
     const mentee = getMentee(pair.menteeId);
     const reasons = getScoreReasons(pair.mentorId, pair.menteeId);

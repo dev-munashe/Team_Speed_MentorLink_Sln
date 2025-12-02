@@ -1,5 +1,6 @@
 // src/portals/admin/pages/AdminPairsPage.tsx
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../../../store/useAppStore';
 import { computeScore } from '../../../utils/scoring';
 import { 
@@ -19,6 +20,7 @@ import { ManualPairDialog } from '../../../components/ManualPairDialog';
 import type { Pairing, PairStatus } from '../../../types/domain';
 
 export function AdminPairsPage() {
+  const navigate = useNavigate();
   const { 
     pairs, 
     mentors, 
@@ -41,6 +43,11 @@ export function AdminPairsPage() {
     console.log(`Updating pair ${pairId} to status ${status}`);
     // For now, we'll use the store's updatePair function if available
     // updatePair(pairId, status);
+  };
+
+  const handleSendMessage = (pairId: string) => {
+    // Navigate to messages page, optionally with pair ID in state
+    navigate('/admin/messages', { state: { selectedPairId: pairId } });
   };
 
   const handleSwap = (pairId: string) => {
@@ -277,6 +284,7 @@ export function AdminPairsPage() {
             mentees={mentees}
             onSwap={(pairId) => handleSwap(pairId)}
             onUpdateStatus={(pairId, status) => updatePairStatus(pairId, status)}
+            onSendMessage={(pairId) => handleSendMessage(pairId)}
           />
         )}
       </div>

@@ -13,9 +13,10 @@ interface AdminPairsTableProps {
   mentees: Mentee[];
   onSwap: (pairId: string) => void;
   onUpdateStatus: (pairId: string, status: PairStatus) => void;
+  onSendMessage?: (pairId: string) => void;
 }
 
-export function AdminPairsTable({ pairs, mentors, mentees, onSwap, onUpdateStatus }: AdminPairsTableProps) {
+export function AdminPairsTable({ pairs, mentors, mentees, onSwap, onUpdateStatus, onSendMessage }: AdminPairsTableProps) {
   const getMentor = (mentorId: string) => mentors.find(m => m.id === mentorId);
   const getMentee = (menteeId: string) => mentees.find(m => m.id === menteeId);
 
@@ -145,32 +146,32 @@ export function AdminPairsTable({ pairs, mentors, mentees, onSwap, onUpdateStatu
               return (
                 <tr key={pair.id} className="hover:bg-gray-50">
                   {/* Mentor */}
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-6 py-4">
                     <div className="flex items-center">
-                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
                         <UserCheck className="w-5 h-5 text-blue-600" />
                       </div>
-                      <div className="ml-4">
-                        <div className="text-sm font-medium text-gray-900">{mentor?.name || 'Unknown'}</div>
-                        <div className="text-sm text-gray-500">{mentor?.org || mentor?.role}</div>
-                        <div className="text-xs text-gray-400">
-                          {mentor?.skills?.slice(0, 3).join(', ')}
+                      <div className="ml-4 min-w-0">
+                        <div className="text-sm font-medium text-gray-900 truncate">{mentor?.name || 'Unknown'}</div>
+                        <div className="text-sm text-gray-500 truncate">{mentor?.org || mentor?.role}</div>
+                        <div className="text-xs text-gray-400 truncate">
+                          {mentor?.skills?.slice(0, 2).join(', ')}
                         </div>
                       </div>
                     </div>
                   </td>
 
                   {/* Mentee */}
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-6 py-4">
                     <div className="flex items-center">
-                      <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                      <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center shrink-0">
                         <UserCheck className="w-5 h-5 text-green-600" />
                       </div>
-                      <div className="ml-4">
-                        <div className="text-sm font-medium text-gray-900">{mentee?.name || 'Unknown'}</div>
-                        <div className="text-sm text-gray-500">{mentee?.program_track || 'Student'}</div>
-                        <div className="text-xs text-gray-400">
-                          {mentee?.interests?.slice(0, 3).join(', ')}
+                      <div className="ml-4 min-w-0">
+                        <div className="text-sm font-medium text-gray-900 truncate">{mentee?.name || 'Unknown'}</div>
+                        <div className="text-sm text-gray-500 truncate">{mentee?.program_track || 'Student'}</div>
+                        <div className="text-xs text-gray-400 truncate">
+                          {mentee?.interests?.slice(0, 2).join(', ')}
                         </div>
                       </div>
                     </div>
@@ -206,15 +207,15 @@ export function AdminPairsTable({ pairs, mentors, mentees, onSwap, onUpdateStatu
                   </td>
 
                   {/* Contact Info */}
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <div className="space-y-1">
+                  <td className="px-6 py-4 text-sm text-gray-500">
+                    <div className="space-y-1 max-w-[200px]">
                       <div className="flex items-center gap-1">
-                        <Mail className="w-3 h-3" />
-                        <span className="text-xs">{mentor?.email?.substring(0, 20)}...</span>
+                        <Mail className="w-3 h-3 shrink-0" />
+                        <span className="text-xs truncate" title={mentor?.email}>{mentor?.email}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Mail className="w-3 h-3" />
-                        <span className="text-xs">{mentee?.email?.substring(0, 20)}...</span>
+                        <Mail className="w-3 h-3 shrink-0" />
+                        <span className="text-xs truncate" title={mentee?.email}>{mentee?.email}</span>
                       </div>
                     </div>
                   </td>
@@ -230,8 +231,10 @@ export function AdminPairsTable({ pairs, mentors, mentees, onSwap, onUpdateStatu
                         <RefreshCw className="w-4 h-4" />
                       </button>
                       <button
-                        className="text-green-600 hover:text-green-900 transition-colors"
+                        onClick={() => onSendMessage?.(pair.id)}
+                        className="text-green-600 hover:text-green-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         title="Send message"
+                        disabled={!onSendMessage}
                       >
                         <MessageSquare className="w-4 h-4" />
                       </button>
