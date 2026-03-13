@@ -12,6 +12,40 @@ import type {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const REGISTERED_USERS_KEY = 'mentor-matcher-registered-users';
+
+function getRegisteredUsers(): User[] {
+  try {
+    const saved = localStorage.getItem(REGISTERED_USERS_KEY);
+    if (!saved) return [];
+    return (JSON.parse(saved) as User[]).map((u) => ({
+      ...u,
+      createdAt: new Date(u.createdAt),
+      lastLoginAt: u.lastLoginAt ? new Date(u.lastLoginAt) : undefined
+    }));
+  } catch {
+    return [];
+  }
+}
+
+function saveRegisteredUser(user: User): void {
+  const users = getRegisteredUsers();
+  const idx = users.findIndex((u) => u.id === user.id);
+  if (idx >= 0) {
+    users[idx] = user;
+  } else {
+    users.push(user);
+  }
+  localStorage.setItem(REGISTERED_USERS_KEY, JSON.stringify(users));
+}
+
+function getAllUsers(): User[] {
+  const registered = getRegisteredUsers();
+  const registeredIds = new Set(registered.map((u) => u.id));
+  const mockOnly = MOCK_USERS.filter((u) => !registeredIds.has(u.id));
+  return [...mockOnly, ...registered];
+}
+
 // Mock users for demo/prototype (replace with real API later)
 const MOCK_USERS: User[] = [
   {
@@ -99,10 +133,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (savedUser) {
       try {
         const parsedUser = JSON.parse(savedUser);
-        // Validate user still exists and is active
-        const mockUser = MOCK_USERS.find(u => u.id === parsedUser.id && u.isActive);
+        // Validate user still exists and is active (including dynamically registered users)
+        const mockUser = getAllUsers().find(u => u.id === parsedUser.id && u.isActive);
         if (mockUser) {
-          setUser({ ...mockUser, lastLoginAt: new Date() });
+          const restoredUser = { ...mockUser, lastLoginAt: new Date() };
+          // Persist updated lastLoginAt for registered users
+          if (!MOCK_USERS.find(u => u.id === mockUser.id)) {
+            saveRegisteredUser(restoredUser);
+          }
+          setUser(restoredUser);
         } else {
           localStorage.removeItem('mentor-matcher-user');
         }
@@ -123,7 +162,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       // Find user by email and password (in real app, password would be hashed)
-      const foundUser = MOCK_USERS.find(
+      const foundUser = getAllUsers().find(
         u => u.email === credentials.email && 
              u.password === credentials.password && 
              u.isActive
@@ -155,7 +194,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       // Check if user already exists
-      if (MOCK_USERS.find(u => u.email === data.email)) {
+      if (getAllUsers().find(u => u.email === data.email)) {
         throw new Error('User with this email already exists');
       }
 
@@ -187,7 +226,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
       // For mentor/mentee, we'll create basic profiles that they can complete later
 
-      MOCK_USERS.push(newUser);
+      // Persist the new user so it survives page refreshes
+      saveRegisteredUser(newUser);
       setUser(newUser);
       localStorage.setItem('mentor-matcher-user', JSON.stringify(newUser));
       
