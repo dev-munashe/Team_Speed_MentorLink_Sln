@@ -75,4 +75,24 @@ Use the included files:
 4. Customize message template and preview results
 5. Use Kanban board to track pair progress
 
-Built for mentorship programs that need to scale with quality! 
+Built for mentorship programs that need to scale with quality!
+
+---
+
+## 🚍 Public Transport Operator Incubator Programme Presentation
+
+This repository also includes a professional PowerPoint presentation about the **Public Transport Operator Incubator Programme**.
+
+### 👀 Can't Open PowerPoint? No Problem!
+
+**Choose your preview method:**
+- 🌐 **[Open SLIDE_PREVIEW.html](SLIDE_PREVIEW.html)** - Full visual preview in browser (RECOMMENDED)
+- 📄 **[View SLIDE_VISUAL_PREVIEW.md](SLIDE_VISUAL_PREVIEW.md)** - Detailed text preview with layout
+- 📋 **[View SLIDE_CONTENT_EXTRACTION.md](SLIDE_CONTENT_EXTRACTION.md)** - Raw content extraction
+- 📖 **[Read HOW_TO_VIEW_SLIDES.md](HOW_TO_VIEW_SLIDES.md)** - Complete viewing guide
+
+### 📦 Presentation Files
+- `Public_Transport_Operator_Incubator_Programme.pptx` - Main editable presentation (36KB)
+- 5 professional slides with blue/orange/green color scheme
+- Government and funder-ready design
+- Full documentation in [PRESENTATION_README.md](PRESENTATION_README.md) 
